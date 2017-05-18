@@ -195,18 +195,10 @@ form div {
 }
 
 .form-control-feedback {
-    position: absolute;
-    top: 0;
     color: #41b3e7;
     left: 0;
-    z-index: 2;
     display: block;
-    width: 34px;
-    height: 34px;
     font-size: 24px;
-    line-height: 34px;
-    text-align: center;
-    pointer-events: none;
 }
 
 .has-success .form-control-feedback {
