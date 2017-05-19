@@ -1,0 +1,81 @@
+.remote_main {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding-top: 5rem;
+  padding-bottom: 6rem;
+}
+
+.remote_menus {
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  width: 100%;
+  height: 4.5rem;
+  background-color: #f2f2f2;
+  border-bottom: 1rem solid #f2f2f2;
+  padding-bottom: 4rem;
+}
+
+.tbtn {
+  color: #000;
+  float: left;
+  width: 50%;
+  font-size: 2rem;
+  text-align: center;
+  line-height: 4.5rem;
+}
+
+.remote_list_block {
+  position: relative;
+  display: none;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.remote_list {
+  height: 100%;
+  width: 100%;
+}
+
+
+/*.game_download_block {
+  position: relative;
+  display: none;
+  height: 100%;
+  overflow-y: auto;
+}*/
+
+.add_remote {
+	width: 90%;
+  margin-top: 0.5rem;
+  padding: 0 1rem;
+  border-bottom: 0.1rem solid #c8c8c8;
+}
+
+.add_remote>span {
+  color: #c8c8c8;
+  line-height: 4rem;
+  font-size: 3rem;
+  margin-left: 1rem;
+}
+
+.remote_list>ul {
+  padding: 0 1rem 1rem 1rem;
+}
+
+.remote_list>ul>li {
+  padding: 0.5rem 2.5rem;
+  list-style-type: none;
+  font-size: 2rem;
+  line-height: 4rem;
+  border: 0;
+  background-color: #42bdf8;
+  border-radius: 0.5rem;
+  margin-top: 0.8rem;
+}
+
+.remote_list>ul>li>a>div>span {
+  color: #FFF;
+  padding-left: 2rem;
+}
