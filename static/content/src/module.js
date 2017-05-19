@@ -8,7 +8,6 @@ define(function(require, exports, module) {
     },
     _main: function() {
       relogin();
-      $('.remote_bbtn').click();
     },
     _bindUI: function() {
       $.root_.off('click', '.remote_bbtn').on('click', '.remote_bbtn', function(e) {
@@ -22,21 +21,12 @@ define(function(require, exports, module) {
         activeBtn(name);
       })
       $.root_.off('click', '.netbar_choose').on("click", '.netbar_choose', function(e) {
+        $('.remote_bbtn').click();
         $('.netbar_list_mask').hide();
-        $('html,body').animate({ scrollTop: 0 }, 100);
       })
       $.root_.off('click', '.open_netbar_list').on("click", '.open_netbar_list', function(e) {
           $('.netbar_list_mask').show();
         })
-        // $.root_.off('click', '.afresh_login').on("click", '.afresh_login', function(e) {
-        //  loginOut();
-        // })
-        // $.root_.off('click', '.loginout').on("click", '.loginout', function(e) {
-        //  loginOut();
-        // })
-        // $.root_.off('click', '.close_ping_msg').on("click", '.close_ping_msg', function(e) {
-        //  $('.noping_msg').hide();
-        // })
     },
     _buildMenu: function() {
       buildMenu();
