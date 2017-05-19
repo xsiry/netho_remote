@@ -1,6 +1,5 @@
 define(function(require, exports, module) {
   $.root_ = $('body');
-  var _activate;
   module.exports = {
     init: function() {
       this._bindUI();
@@ -15,19 +14,20 @@ define(function(require, exports, module) {
       $.root_.off('click', '.remote_bbtn').on('click', '.remote_bbtn', function(e) {
         var name = 'remote';
         $('.netbar_list_btn').show();
-        initBtn(name);
+        activeBtn(name);
       })
       $.root_.off('click', '.account_bbtn').on("click", '.account_bbtn', function(e) {
         var name = 'account';
         $('.netbar_list_btn').hide();
-        initBtn(name);
+        activeBtn(name);
       })
       $.root_.off('click', '.netbar_choose').on("click", '.netbar_choose', function(e) {
         $('.netbar_list_mask').hide();
+        $('html,body').animate({ scrollTop: 0 }, 100);
       })
       $.root_.off('click', '.open_netbar_list').on("click", '.open_netbar_list', function(e) {
-        $('.netbar_list_mask').show();
-      })
+          $('.netbar_list_mask').show();
+        })
         // $.root_.off('click', '.afresh_login').on("click", '.afresh_login', function(e) {
         //  loginOut();
         // })
@@ -53,11 +53,11 @@ define(function(require, exports, module) {
 
     for (var i = 0; i < 20; i++) {
       html += '<li><a href="javascript:void(0)" class="netbar_choose"><div><i>'
-           +  '<svg class="svg_icon" viewBox="0 0 1024 1024">'
-           +  '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_svg"></use>'
-           +  '</svg></i><span>远程网吧'+i+'号</span>'
-           +  '<i class="pull-right"><svg class="svg_icon" viewBox="0 0 1024 1024">'
-           +  '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use></svg></i></div></a></li>';
+           + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
+           + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_svg"></use>'
+           + '</svg></i><span>远程网吧' + i + '号</span>'
+           + '<i class="pull-right"><svg class="svg_icon" viewBox="0 0 1024 1024">'
+           + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use></svg></i></div></a></li>';
     }
 
     html += '</ul>';
@@ -84,11 +84,10 @@ define(function(require, exports, module) {
     $('div.menus').append(html);
   }
 
-  function initBtn(name) {
+  function activeBtn(name) {
     $('div.bbtn').css('color', '#43b2e7').css('background-color', 'inherit');
     loadURL('../apps/' + name + '.html');
     $('div.' + name + '_bbtn').css('color', '#FFF').css('background-color', '#43b2e7');
-    _activate = name;
   }
 
   function loadURL(a) {
