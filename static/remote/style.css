@@ -105,6 +105,41 @@
   margin-left: 1rem;
 }
 
+.remote_add_mask {
+	display: none;
+	position: absolute;
+	top: 0;
+  z-index: 6;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem;
+}
+
+.remote_add_block {
+	background-color: #FFF;
+	width: 100%;
+	height: 100%;
+	padding: 0.5rem 1rem;
+}
+
+.remote_add_block .form-control {
+	border-radius: 0;
+}
+
+.remote_add_block>form>label {
+	border-bottom: 0.1rem solid #d8d8d8;
+  width: 100%;
+  font-size: 2rem;
+  color: #666666;
+}
+
+.remote_add_block>form>button {
+	border-radius: 0;
+	background-color: #43b2e7;
+	color: #fff;
+}
+
 .remote_tools {
   position: absolute;
   top: 0;

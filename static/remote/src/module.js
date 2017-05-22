@@ -15,6 +15,9 @@ define(function(require, exports, module) {
         activeBtn(name);
         $('div.remote_list_block').show()
       })
+      $.root_.off('click', '.add_remote').on('click', '.add_remote', function(e) {
+        $('.remote_add_mask').show();
+      })
       $.root_.off('click', '.game_download_btn').on("click", '.game_download_btn', function(e) {
         var name = 'game_download';
         activeBtn(name);
