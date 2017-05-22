@@ -42,12 +42,12 @@ define(function(require, exports, module) {
          + '</div><ul>';
 
     for (var i = 0; i < 20; i++) {
-      html += '<li><a href="javascript:void(0)" class="netbar_choose"><div><i>'
+      html += '<li><a href="javascript:void(0)" class="netbar_choose"><i>'
            + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
            + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_svg"></use>'
            + '</svg></i><span>远程网吧' + i + '号</span>'
            + '<i class="pull-right"><svg class="svg_icon" viewBox="0 0 1024 1024">'
-           + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use></svg></i></div></a></li>';
+           + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use></svg></i></a></li>';
     }
 
     html += '</ul>';

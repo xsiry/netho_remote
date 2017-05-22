@@ -86,8 +86,8 @@ a:focus {
   position: fixed;
   bottom: 7rem;
   left: 1rem;
-  background-color: rgba(137, 255, 0, 0.8);
-  border-radius: 5rem;
+  background-color: rgba(33, 150, 243, 0.9);
+  border-radius: 4rem;
   width: 6.5rem;
   height: 6.5rem;
   text-align: center;
@@ -154,18 +154,18 @@ ul {
 }
 
 ul>li {
-  padding: 0.5rem 0.5rem;
   list-style-type: none;
   font-size: 2rem;
   line-height: 4rem;
   border-bottom: 1px solid #d9d9d9;
 }
 
-ul>li>a>div {
+ul>li>a {
   display: block;
+  padding: 0.5rem 0.5rem;
 }
 
-ul>li>a>div>span {
+ul>li>a>span {
   color: #000;
   padding-left: 1rem;
 }

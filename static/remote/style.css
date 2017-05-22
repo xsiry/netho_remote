@@ -30,7 +30,7 @@
   position: relative;
   display: none;
   height: 100%;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 .remote_list {
@@ -46,8 +46,53 @@
   overflow-y: auto;
 }*/
 
+.remote_list>ul {
+  padding: 0 1rem 1rem 1rem;
+}
+
+.remote_list>ul>li {
+  list-style-type: none;
+  font-size: 2rem;
+  line-height: 4rem;
+  border: 0;
+  background-color: #42bdf8;
+  border-radius: 0.5rem;
+  margin-top: 0.8rem;
+  -webkit-transform: translateX(0px);
+}
+
+.remote_list>ul>li>a {
+  padding: 0.5rem 2.5rem;
+  line-height: 6rem;
+}
+
+.remote_list>ul>li>a>i {
+  position: absolute;
+  top: 0.6rem;
+}
+
+.remote_list>ul>li>a>i>.svg_icon {
+  display: inline-block;
+  width: 5rem;
+  height: 5rem;
+  vertical-align: top;
+  pointer-events: none;
+}
+
+.remote_list>ul>li>a>ul {
+  color: #FFF;
+  position: relative;
+  left: 6rem;
+  top: 0.1;
+}
+
+.remote_list>ul>li>a>ul>li {
+  line-height: 2.5rem;
+  border-bottom: 0;
+}
+
 .add_remote {
-	width: 90%;
+  width: 90%;
   margin-top: 0.5rem;
   padding: 0 1rem;
   border-bottom: 0.1rem solid #c8c8c8;
@@ -60,22 +105,27 @@
   margin-left: 1rem;
 }
 
-.remote_list>ul {
-  padding: 0 1rem 1rem 1rem;
+.remote_tools {
+  position: absolute;
+  top: 0;
+  right: -240px;
+  text-align: center;
+  height: 100%;
+  width: 240px;
+  padding-left: 1rem;
 }
 
-.remote_list>ul>li {
-  padding: 0.5rem 2.5rem;
-  list-style-type: none;
-  font-size: 2rem;
-  line-height: 4rem;
-  border: 0;
-  background-color: #42bdf8;
+.remote_tools>a {
+  display: block;
+  line-height: 5rem;
   border-radius: 0.5rem;
-  margin-top: 0.8rem;
+  color: #fff;
 }
 
-.remote_list>ul>li>a>div>span {
-  color: #FFF;
-  padding-left: 2rem;
+.remote_tools>a.remote_update {
+  background: #3ba0f2;
+}
+
+.remote_tools>a.remote_del {
+  background: #f44336;
 }

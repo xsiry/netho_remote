@@ -12,12 +12,78 @@
     <div class="remote_list"></div>
   </div>
   <div class="game_download_block">
-  2
+    2
   </div>
 </div>
-
 <script type="text/javascript">
 $(document).ready(function() {
   seajs.use('../static/remote/src/main');
+
+  var initX; //触摸位置
+  var moveX; //滑动时的位置
+  var X = 0; //移动距离
+  var objX = 0; //目标对象位置
+  $('.remote_list_block').on('touchstart', function(event) {
+    // event.preventDefault();
+    var obj = event.target.parentNode;
+    if (obj.className == "list-li") {
+      initX = event.targetTouches[0].pageX;
+      objX = (obj.style.WebkitTransform.replace(/translateX\(/g, "").replace(/px\)/g, "")) * 1;
+    }
+    if (objX == 0) {
+      $('.remote_list_block').on('touchmove', function(event) {
+        // event.preventDefault();
+        var obj = event.target.parentNode;
+        if (obj.className == "list-li") {
+          moveX = event.targetTouches[0].pageX;
+          X = moveX - initX;
+          if (X >= 0) {
+            obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+          } else if (X < 0) {
+            var l = Math.abs(X);
+            obj.style.WebkitTransform = "translateX(" + -l + "px)";
+            if (l > 240) {
+              l = 240;
+              obj.style.WebkitTransform = "translateX(" + -l + "px)";
+            }
+          }
+        }
+      });
+    } else if (objX < 0) {
+      $('.remote_list_block').on('touchmove', function(event) {
+        // event.preventDefault();
+        var obj = event.target.parentNode;
+        if (obj.className == "list-li") {
+          moveX = event.targetTouches[0].pageX;
+          X = moveX - initX;
+          if (X >= 0) {
+            var r = -240 + Math.abs(X);
+            obj.style.WebkitTransform = "translateX(" + r + "px)";
+            if (r > 0) {
+              r = 0;
+              obj.style.WebkitTransform = "translateX(" + r + "px)";
+            }
+          } else { //向左滑动
+            obj.style.WebkitTransform = "translateX(" + -240 + "px)";
+          }
+        }
+      });
+    }
+
+  })
+  $('.remote_list_block').on('touchend', function(event) {
+    // event.preventDefault();
+    var obj = event.target.parentNode;
+    if (obj.className == "list-li") {
+      objX = (obj.style.WebkitTransform.replace(/translateX\(/g, "").replace(/px\)/g, "")) * 1;
+      if (objX > -60) {
+        obj.style.WebkitTransform = "translateX(" + 0 + "px)";
+        objX = 0;
+      } else {
+        obj.style.WebkitTransform = "translateX(" + -240 + "px)";
+        objX = -240;
+      }
+    }
+  })
 })
 </script>
