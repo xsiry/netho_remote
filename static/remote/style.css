@@ -87,6 +87,7 @@
   position: relative;
   left: 6rem;
   top: 0.1;
+  width: 80%;
 }
 
 .remote_list>ul>li>a>ul>li {
@@ -144,6 +145,7 @@
 }
 
 .remote_tools {
+  display: block;
   position: absolute;
   top: 0;
   right: -257.5px;
