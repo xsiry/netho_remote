@@ -30,7 +30,9 @@
   position: relative;
   display: none;
   height: 100%;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
 
 .remote_list {
@@ -51,6 +53,7 @@
 }
 
 .remote_list>ul>li {
+  transition: transform .1s linear;
   list-style-type: none;
   font-size: 2rem;
   line-height: 4rem;
@@ -143,16 +146,18 @@
 .remote_tools {
   position: absolute;
   top: 0;
-  right: -240px;
+  right: -257.5px;
   text-align: center;
   height: 100%;
-  width: 240px;
-  padding-left: 1rem;
+  width: 257.5px;
+  padding-left: 12.5px;
 }
 
 .remote_tools>a {
+  float: left;
+  width: 110px;
   display: block;
-  line-height: 5rem;
+  line-height: 6rem;
   border-radius: 0.5rem;
   color: #fff;
 }
@@ -162,5 +167,6 @@
 }
 
 .remote_tools>a.remote_del {
+  margin-left: 12.5px;
   background: #f44336;
 }
