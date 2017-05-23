@@ -20,6 +20,9 @@ define(function(require, exports, module) {
         activeBtn(name);
         $('div.remote_list_block').show()
       })
+      $.root_.off('click', '.remote_choose').on('click', '.remote_choose', function(e) {
+        console.log("remote_success");
+      })
       $.root_.off('click', '.add_remote').on('click', '.add_remote', function(e) {
         var rowobj = $(this);
         $('.remote_add_mask').show();
@@ -36,7 +39,7 @@ define(function(require, exports, module) {
       $.root_.off('click', '.remote_del').on('click', '.remote_del', function(e) {
         var rowobj = $(this);
         // var gameid = rowobj.data("gameid");
-        // deleteServer();
+        deleteServer(rowobj);
         touchRest(rowobj);
         e.preventDefault();
         rowobj = null;
@@ -130,7 +133,8 @@ define(function(require, exports, module) {
     $('div.' + name + '_btn').css('color', '#43b2e7').css('border-bottom', '0.5rem solid #43b2e7');
   }
 
-  function deleteServer() {
+  function deleteServer(rowobj) {
+    rowobj.parent().parent().remove();
     alert('Delete success!');
   }
 
