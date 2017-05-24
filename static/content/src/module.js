@@ -26,7 +26,10 @@ define(function(require, exports, module) {
       })
       $.root_.off('click', '.open_netbar_list').on("click", '.open_netbar_list', function(e) {
           $('.netbar_list_mask').show();
-        })
+      })
+      $.root_.off('click', '.account_mnt').on('click', '.account_mnt', function(e) {
+        loadURL('../apps/accountMnt.html');
+      })
     },
     _buildMenu: function() {
       buildMenu();

@@ -8,9 +8,6 @@ define(function(require, exports, module) {
     _main: function() {
     },
     _bindUI: function() {
-      $.root_.off('click', '.account_mnt').on('click', '.account_mnt', function(e) {
-
-      })
       $.root_.off('click', '.service_tel').on('click', '.service_tel', function(e) {
 
       })
