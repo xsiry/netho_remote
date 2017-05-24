@@ -1,0 +1,122 @@
+.feedback_main {
+  padding: 2rem 1.5rem 6rem 1.5rem;
+}
+
+.feedback_title {
+  display: block;
+  font-size: 2rem;
+  line-height: 4rem;
+  border-bottom: .1rem solid #d9d9d9;
+}
+
+.feedback_input textarea {
+  width: 100%;
+  height: 14rem;
+  border: .1rem solid #e9e9e9;
+  margin-top: 2rem;
+}
+
+.feedback_main button {
+	margin-top: 2rem;
+}
+
+/*图片上传*/
+.container {
+  width: 100%;
+  min-height: 14rem;
+  max-height: 25rem;
+  overflow: auto;
+  clear: both;
+  padding: 1.5rem 0;
+  /*background-color: #e9e9e9;*/
+}
+
+.z_photo {
+  width: 100%;
+  min-height: 11rem;
+  max-height: 22rem;
+  overflow: auto;
+  clear: both;
+}
+
+.z_photo img {
+  width: 10rem;
+  height: 10rem;
+}
+
+.z_addImg {
+  float: left;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+
+.z_file {
+  width: 10rem;
+  height: 10rem;
+  background: red;
+  background-size: 100% 100%;
+  float: left;
+  margin-left: 1rem;
+  margin-top: 1rem;
+}
+
+.z_file input::-webkit-file-upload-button {
+  width: 10rem;
+  height: 10rem;
+  border: none;
+  position: absolute;
+  outline: 0;
+  opacity: 0;
+}
+
+.z_file input#file {
+  display: block;
+  width: auto;
+  border: 0;
+  vertical-align: middle;
+}
+
+
+/*遮罩层*/
+
+.z_mask {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  display: none;
+}
+
+.z_alert {
+  width: 3rem;
+  height: 2rem;
+  border-radius: .2rem;
+  background: #fff;
+  font-size: .24rem;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -1.5rem;
+  margin-top: -2rem;
+}
+
+.z_alert p:nth-child(1) {
+  line-height: 1.5rem;
+}
+
+.z_alert p:nth-child(2) span {
+  display: inline-block;
+  width: 49%;
+  height: .5rem;
+  line-height: .5rem;
+  float: left;
+  border-top: 1px solid #ddd;
+}
+
+.z_cancel {
+  border-right: 1px solid #ddd;
+}

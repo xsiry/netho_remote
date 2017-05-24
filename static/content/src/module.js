@@ -30,6 +30,9 @@ define(function(require, exports, module) {
       $.root_.off('click', '.account_mnt').on('click', '.account_mnt', function(e) {
         loadURL('../apps/accountMnt.html');
       })
+      $.root_.off('click', '.feedback').on('click', '.feedback', function(e) {
+        loadURL('../apps/feedback.html');
+      })
     },
     _buildMenu: function() {
       buildMenu();

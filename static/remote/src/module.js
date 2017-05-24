@@ -145,10 +145,17 @@ define(function(require, exports, module) {
 
   function buildRemoteList() {
     var html = "";
-    html += '<a href="javascript:void(0)" class="center-block add_remote"><i>' + '<svg class="svg_icon" viewBox="0 0 1024 1024">' + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#add_remote_svg"></use>' + '</svg></i><span>添加服务器</span></a><ul>';
+    html += '<a href="javascript:void(0)" class="center-block add_remote"><i>'
+         + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
+         + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#add_remote_svg"></use>'
+         + '</svg></i><span>添加服务器</span></a><ul>';
 
     for (var i = 0; i < 20; i++) {
-      html += '<li class="list-li"><a href="javascript:void(0)" class="remote_choose"><i>' + '<svg class="svg_icon" viewBox="0 0 1024 1024">' + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_server_svg"></use>' + '</svg></i><ul><li>远程服务器' + i + '号</li><li>192.168.1.10</li></ul>' + '</a><div class="remote_tools"><a href="javascript:void(0);" class="remote_update">修改</a><a href="javascript:void(0);" class="remote_del">删除</a></div></li>';
+      html += '<li class="list-li"><a href="javascript:void(0)" class="remote_choose"><i>'
+           + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
+           + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_server_svg"></use>'
+           + '</svg></i><ul><li>远程服务器' + i + '号</li><li>192.168.1.10</li></ul>'
+           + '</a><div class="remote_tools"><a href="javascript:void(0);" class="remote_update">修改</a><a href="javascript:void(0);" class="remote_del">删除</a></div></li>';
     }
 
     html += '</ul>';
