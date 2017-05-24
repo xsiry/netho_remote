@@ -1,0 +1,53 @@
+<link rel="stylesheet" type="text/css" href="../static/accountMnt/style.css">
+<div class="account_main">
+	<div class="account_list_block">
+		<div class="center-block account_list">
+		</div>
+		<div class="add_account_mask">
+			<div class="add_account_block">
+				<form>
+					<label>添加员工账号</label>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="员工姓名" required autofocus>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="登陆账号" required>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="登陆密码" required>
+					</div>
+					<label>账号状态</label>
+					<div class="form-group form_group_btn">
+						<span>账号启用</span>
+						<div class="ios_button">
+							<input type="checkbox" id="ios-checkbox" name="emulate-ios-button" class="raw-checkbox">
+							<label for="ios-checkbox" class="emulate-ios-button"></label>
+						</div>
+					</div>
+					<label>可见分组</label>
+					<div class="form-group form_group_btn">
+						<span>新建分组1</span>
+						<div class="ios_button">
+							<input type="checkbox" id="ios-checkbox1" name="emulate-ios-button1" class="raw-checkbox">
+							<label for="ios-checkbox1" class="emulate-ios-button"></label>
+						</div>
+					</div>
+					<label>账号权限</label>
+					<div class="form-group form_group_btn">
+						<span>新建分组1</span>
+						<div class="ios_button">
+							<input type="checkbox" id="ios-checkbox2" name="emulate-ios-button2" class="raw-checkbox">
+							<label for="ios-checkbox2" class="emulate-ios-button"></label>
+						</div>
+					</div>
+					<button type="submit" class="btn btn-block btn-default">提交</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	seajs.use('../static/accountMnt/src/main');
+})
+</script>

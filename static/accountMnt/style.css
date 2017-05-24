@@ -1,0 +1,245 @@
+.account_main {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding-bottom: 6rem;
+}
+
+.account_list_block {
+  position: relative;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.account_list {
+  height: 100%;
+  width: 100%;
+}
+
+.account_title {
+  line-height: 4rem;
+  border-bottom: 1px solid #d9d9d9;
+  font-size: 2rem;
+  padding: 0 1.5rem;
+}
+
+.account_list>ul {
+  /*padding: 0 1rem 1rem 1rem;*/
+}
+
+.account_list>ul>li {
+  transition: transform .1s linear;
+  list-style-type: none;
+  font-size: 2rem;
+  line-height: 4rem;
+  border: 0;
+  -webkit-transform: translateX(0px);
+}
+
+.account_list>ul>li>a {
+  padding: 0.5rem 1.5rem;
+  line-height: 4rem;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.account_list>ul>li>a>i>.svg_icon {
+  display: inline-block;
+  width: 3.5rem;
+  height: 3.5rem;
+  vertical-align: top;
+  pointer-events: none;
+}
+
+.add_account {
+  margin-top: 0.5rem;
+  padding: 0 1.5rem;
+  border-bottom: 0.1rem solid #c8c8c8;
+}
+
+.add_account>span {
+  color: #c8c8c8;
+  line-height: 4rem;
+  font-size: 2rem;
+  margin-left: 1rem;
+}
+
+.add_account_mask {
+  display: none;
+  position: absolute;
+  top: 0;
+  z-index: 6;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 0.5rem;
+}
+
+.add_account_block {
+  background-color: #FFF;
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem 1rem;
+}
+
+.add_account_block .form-control {
+  border-radius: 0;
+}
+
+.add_account_block>form>label {
+  border-bottom: 0.1rem solid #d8d8d8;
+  width: 100%;
+  font-size: 2rem;
+  color: #666666;
+}
+
+.add_account_block>form>button {
+  border-radius: 0;
+  background-color: #43b2e7;
+  color: #fff;
+}
+
+.account_tools {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: -221px;
+  text-align: center;
+  height: 100%;
+  width: 221px;
+  padding-left: 0;
+}
+
+.account_tools>a {
+  float: left;
+  width: 110.5px;
+  display: block;
+  line-height: 5rem;
+  color: #fff;
+}
+
+.account_tools>a.account_update {
+  background: #3ba0f2;
+}
+
+.account_tools>a.account_del {
+  background: #f44336;
+}
+
+.add_account_block>form>label {
+  font-size: 1.5rem;
+}
+
+.add_account_block>form>div.form_group_btn {
+  height: 3.5rem;
+  border-bottom: 0.1rem solid #d8d8d8;
+}
+
+.add_account_block>form>div>span {
+  float: left;
+  font-size: 2rem;
+  color: #999999;
+  line-height: 3rem;
+}
+
+.add_account_block>form>div>div.ios_button {
+  float: right;
+  padding-top: 0.4rem;
+}
+
+
+/* ==========================================================================
+                    label标签模拟按钮
+       ========================================================================== */
+
+.emulate-ios-button {
+  display: block;
+  width: 5rem;
+  height: 2.2rem;
+  background: #ccc;
+  border-radius: 5rem;
+  cursor: pointer;
+  position: relative;
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+
+/* ==========================================================================
+                    设置伪类,来实现模拟滑块滑动,过渡用了transition来实现 ,
+                    translateZ来强制启用硬件渲染
+       ========================================================================== */
+
+.emulate-ios-button:after {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 100%;
+  background: #fff;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
+  position: absolute;
+  left: .2rem;
+  top: .1rem;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transition: all .3s ease;
+  transition: all .3s ease;
+}
+
+.emulate-ios-button:active:after {
+  width: 2rem;
+}
+
+
+/* ==========================================================================
+                    设置raw-checkbox,视觉直观比较
+       ========================================================================== */
+
+.raw-checkbox {
+  display: none;
+  height: 2rem;
+  width: 2rem;
+}
+
+.raw-checkbox:checked+label {
+  background: #34bf49;
+}
+
+
+/* 这里是伪元素偏移,初始是0.9+0.05 ,所以这里1.05rem */
+
+.raw-checkbox:checked+label:after {
+  left: 2.8rem;
+}
+
+.raw-checkbox:checked+label:active:after {
+  left: .5rem;
+}
+
+.raw-checkbox:disabled+label {
+  background: #d5d5d5;
+  pointer-events: none;
+}
+
+.raw-checkbox:disabled+label:after {
+  background: #bcbdbc;
+}
+
+
+/* Checked Knob (Blue Style) */
+
+input[type="checkbox"].ios-switch:checked + div > div {
+  -webkit-transform: translate3d(20px, 0, 0);
+  -moz-transform: translate3d(20px, 0, 0);
+  background-color: #ffffff;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0px 0px 0 1px rgba(8, 80, 172, 1);
+}
+
+
+/* Green Knob */
+
+input[type="checkbox"].green.ios-switch:checked + div > div {
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(0, 162, 63, 1);
+}
