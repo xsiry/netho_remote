@@ -21,7 +21,12 @@ define(function(require, exports, module) {
         $('div.remote_list_block').show()
       })
       $.root_.off('click', '.remote_choose').on('click', '.remote_choose', function(e) {
-        console.log("remote_success");
+        var rowobj = $(this);
+        var ip = rowobj.data("ip");
+        var port = rowobj.data("port");
+        e.preventDefault();
+        rowobj = null;
+        console.log("remote_success:" + ip + ':' + port);
       })
       $.root_.off('click', '.add_remote').on('click', '.add_remote', function(e) {
         var rowobj = $(this);
@@ -31,14 +36,13 @@ define(function(require, exports, module) {
       })
       $.root_.off('click', '.remote_update').on('click', '.remote_update', function(e) {
         var rowobj = $(this);
-        $('.remote_add_mask').show();
+        updateServer(rowobj);
         touchRest(rowobj);
         e.preventDefault();
         rowobj = null;
       })
       $.root_.off('click', '.remote_del').on('click', '.remote_del', function(e) {
         var rowobj = $(this);
-        // var gameid = rowobj.data("gameid");
         deleteServer(rowobj);
         touchRest(rowobj);
         e.preventDefault();
@@ -133,7 +137,30 @@ define(function(require, exports, module) {
     $('div.' + name + '_btn').css('color', '#43b2e7').css('border-bottom', '0.5rem solid #43b2e7');
   }
 
+  function updateServer(rowobj) {
+    var netbar_rem_id = rowobj.data("netbar_rem_id");
+
+    $.ajax({
+      type: 'GET',
+      url: '/ywhsrcweb/' + 'ywh_queryTableList/?',
+      data: {
+        source: 'netbar_remote',
+        qtype: 'select',
+        qhstr: JSON.stringify({"qjson":[{"netbar_rem_id": netbar_rem_id}]})
+      },
+      dataType: 'json',
+      success: function(msg) {
+        console.log(msg);
+        $('.remote_add_mask').show();
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+      }
+    });
+  }
+
   function deleteServer(rowobj) {
+    var netbar_rem_id = rowobj.data("netbar_rem_id");
     rowobj.parent().parent().remove();
     alert('Delete success!');
   }
@@ -145,21 +172,41 @@ define(function(require, exports, module) {
 
   function buildRemoteList() {
     var html = "";
-    html += '<a href="javascript:void(0)" class="center-block add_remote"><i>'
-         + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
-         + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#add_remote_svg"></use>'
-         + '</svg></i><span>添加服务器</span></a><ul>';
-
-    for (var i = 0; i < 20; i++) {
-      html += '<li class="list-li"><a href="javascript:void(0)" class="remote_choose"><i>'
-           + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
-           + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_server_svg"></use>'
-           + '</svg></i><ul><li>远程服务器' + i + '号</li><li>192.168.1.10</li></ul>'
-           + '</a><div class="remote_tools"><a href="javascript:void(0);" class="remote_update">修改</a><a href="javascript:void(0);" class="remote_del">删除</a></div></li>';
-    }
-
-    html += '</ul>';
-
+        html += '<a href="javascript:void(0)" class="center-block add_remote"><i>'
+             + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
+             + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#add_remote_svg"></use>'
+             + '</svg></i><span>添加服务器</span></a><ul></ul>';
     $('div.remote_list').append(html);
+
+    $.ajax({
+      type: 'GET',
+      url: '/ywhsrcweb/' + 'ywh_queryTableList/?',
+      data: {
+        source: 'netbar_remote',
+        qtype: 'select@userRemoteShow',
+        qhstr: JSON.stringify({"qjson":[{"netbarid": _netbarid}]})
+      },
+      dataType: 'json',
+      success: function(msg) {
+        if (msg) {
+          var list = '';
+          for (var i = 0; i < msg.length; i++) {
+          list += '<li class="list-li"><a href="javascript:void(0)" class="remote_choose" data-ip=' + msg[i].innerip + ' data-port=' + msg[i].innerport + '><i>'
+               + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
+               + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_server_svg"></use>'
+               + '</svg></i><ul><li>' + msg[i].remotename + '</li><li>' + msg[i].innerip + '</li></ul>'
+               + '</a><div class="remote_tools"><a href="javascript:void(0);" class="remote_update"  data-netbar_rem_id=' + msg[i].netbar_rem_id + '>修改</a>'
+               + '<a href="javascript:void(0);" class="remote_del"  data-netbar_rem_id=' + msg[i].netbar_rem_id + '>删除</a></div></li>';
+          }
+
+          $('div.remote_list ul').append(list);
+        }
+
+
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+      }
+    });
   }
 })

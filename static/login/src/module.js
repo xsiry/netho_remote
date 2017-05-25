@@ -62,35 +62,33 @@ define(function(require, exports, module) {
   };
 
   function loginSubmit() {
-    location.href = "apps/content.html";
-    // $.ajax({
-    //   type: 'POST',
-    //   contentType: 'application/json',
-    //   url: 'login.json',
-    //   data: JSON.stringify({
-    //     username: $('#inputUsername').val(),
-    //     password: $('#inputPassword').val()
-    //   }),
-    //   dataType: 'json',
-    //   beforeSend: function() {
-    //    $('.subimt_btn').prop("disabled","disabled");
-    //    $('.login_msg').text("正在登陆，请稍等...");
-    //   },
-    //   success: function(data) {
-    //     if (data) {
-    //       $('.login_msg').text("登陆成功！");
-    //       saveUserInfo();
-    //       location.href = "apps/content.html#attendance";
-    //     } else {
-    //       $('.login_msg').text("登陆失败！用户名或密码错误！");
-    //     }
-    //     $('.subimt_btn').removeAttr("disabled");
-    //   },
-    //     error: function(XMLHttpRequest, textStatus, errorThrown) {
-    //       $('.subimt_btn').removeAttr("disabled");
-    //       $('.login_msg').html("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
-    //     }
-    // });
+    $.ajax({
+      type: 'POST',
+      url: '/ywhsrcweb/ywh_userLogin/',
+      data: {
+        username: $('#inputUsername').val(),
+        password: $('#inputPassword').val()
+      },
+      dataType: 'json',
+      beforeSend: function() {
+       $('.subimt_btn').prop("disabled","disabled");
+       $('.login_msg').text("正在登陆，请稍等...");
+      },
+      success: function(data) {
+        if (data.success) {
+          $('.login_msg').text("登陆成功！");
+          saveUserInfo();
+          location.href = "apps/content.html";
+        } else {
+          $('.login_msg').text("登陆失败！用户名或密码错误！");
+        }
+        $('.subimt_btn').removeAttr("disabled");
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $('.subimt_btn').removeAttr("disabled");
+        $('.login_msg').text("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+      }
+    });
   }
 
   //保存用户信息，存储一个带7天期限的 cookie 或者 清除 cookie

@@ -21,8 +21,13 @@ define(function(require, exports, module) {
         activeBtn(name);
       })
       $.root_.off('click', '.netbar_choose').on("click", '.netbar_choose', function(e) {
+        var rowobj = $(this);
+        var netbarid = rowobj.data("netbarid");
+        _netbarid = netbarid;
         $('.remote_bbtn').click();
         $('.netbar_list_mask').hide();
+        e.preventDefault();
+        rowobj = null;
       })
       $.root_.off('click', '.open_netbar_list').on("click", '.open_netbar_list', function(e) {
           $('.netbar_list_mask').show();
@@ -41,24 +46,40 @@ define(function(require, exports, module) {
   };
 
   function buildNetbarList() {
-    var html = "";
-    html += '<div class="form-group has-feedback search_block">'
-         + '<input type="text" class="form-control input_search" placeholder="搜索">'
-         + '<span class="glyphicon glyphicon-search form-control-feedback icon" aria-hidden="true"></span>'
-         + '</div><ul>';
+    $.ajax({
+      type: 'POST',
+      url: '/ywhsrcweb/' + 'ywh_queryTableList/?',
+      data: {
+        source: 'netbar_info',
+        qtype: 'select@online',
+        qhstr: JSON.stringify({ qjson: [{}]})
+      },
+      dataType: 'json',
+      success: function(msg) {
+       var html = "";
+       html += '<div class="form-group has-feedback search_block">'
+           + '<input type="text" class="form-control input_search" placeholder="搜索">'
+           + '<span class="glyphicon glyphicon-search form-control-feedback icon" aria-hidden="true"></span>'
+           + '</div><ul>';
 
-    for (var i = 0; i < 20; i++) {
-      html += '<li><a href="javascript:void(0)" class="netbar_choose"><i>'
-           + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
-           + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_svg"></use>'
-           + '</svg></i><span>远程网吧' + i + '号</span>'
-           + '<i class="pull-right"><svg class="svg_icon" viewBox="0 0 1024 1024">'
-           + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use></svg></i></a></li>';
-    }
+         if (msg) {
+           for (var i = 0; i < msg.length; i++) {
+             html += '<li><a href="javascript:void(0)" class="netbar_choose" data-netbarid=' + msg[i].netbarid + '><i>'
+                  + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
+                  + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_svg"></use>'
+                  + '</svg></i><span>' + msg[i].netbarname + '</span>'
+                  + '<i class="pull-right"><svg class="svg_icon" viewBox="0 0 1024 1024">'
+                  + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use></svg></i></a></li>';
+           }
+         }
 
-    html += '</ul>';
-
-    $('div.netbar_list').append(html);
+         html += '</ul>';
+         $('div.netbar_list').append(html);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+      }
+    });
   }
 
   function buildMenu() {

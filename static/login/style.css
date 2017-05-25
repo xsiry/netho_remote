@@ -208,3 +208,8 @@ form div {
 .icon {
   /*margin-top: 2rem;*/
 }
+
+.btn:hover, .btn:focus, .btn.focus {
+    color: #FFF;
+    text-decoration: none;
+}
