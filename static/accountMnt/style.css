@@ -81,6 +81,8 @@
   width: 100%;
   height: 100%;
   padding: 0.5rem 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .add_account_block .form-control {
@@ -94,7 +96,7 @@
   color: #666666;
 }
 
-.add_account_block>form>button {
+.add_account_block>form button {
   border-radius: 0;
   background-color: #43b2e7;
   color: #fff;
@@ -127,23 +129,23 @@
   background: #f44336;
 }
 
-.add_account_block>form>label {
+.add_account_block>form label {
   font-size: 1.5rem;
 }
 
-.add_account_block>form>div.form_group_btn {
+.add_account_block>form div.form_group_btn {
   height: 3.5rem;
   border-bottom: 0.1rem solid #d8d8d8;
 }
 
-.add_account_block>form>div>span {
+.add_account_block>form>div span {
   float: left;
   font-size: 2rem;
   color: #999999;
   line-height: 3rem;
 }
 
-.add_account_block>form>div>div.ios_button {
+.add_account_block>form>div div.ios_button {
   float: right;
   padding-top: 0.4rem;
 }

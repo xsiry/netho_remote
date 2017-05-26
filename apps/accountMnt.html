@@ -5,42 +5,75 @@
 		</div>
 		<div class="add_account_mask">
 			<div class="add_account_block">
-				<form>
+				<form class="add_form">
 					<label>添加员工账号</label>
+					<input type="hidden" name="sysusid">
+					<input type="hidden" class="parentid" name="parentid">
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="员工姓名" required autofocus>
+						<input type="text" class="form-control" placeholder="员工姓名" name="sysname" required autofocus>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="登陆账号" required>
+						<input type="text" class="form-control" placeholder="登陆账号" name="username" required>
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="登陆密码" required>
+						<input type="text" class="form-control pswd" placeholder="登陆密码" name="pswd" required>
+						<input type="hidden" class="qrpswd" name="qrpswd">
 					</div>
 					<label>账号状态</label>
 					<div class="form-group form_group_btn">
 						<span>账号启用</span>
 						<div class="ios_button">
-							<input type="checkbox" id="ios-checkbox" name="emulate-ios-button" class="raw-checkbox">
-							<label for="ios-checkbox" class="emulate-ios-button"></label>
+							<input type="checkbox" id="ustate" name="ustate" class="raw-checkbox">
+							<label for="ustate" class="emulate-ios-button"></label>
 						</div>
 					</div>
 					<label>可见分组</label>
-					<div class="form-group form_group_btn">
-						<span>新建分组1</span>
-						<div class="ios_button">
-							<input type="checkbox" id="ios-checkbox1" name="emulate-ios-button1" class="raw-checkbox">
-							<label for="ios-checkbox1" class="emulate-ios-button"></label>
-						</div>
+					<div class="account_groups">
 					</div>
 					<label>账号权限</label>
 					<div class="form-group form_group_btn">
-						<span>新建分组1</span>
+						<span>远程网吧</span>
 						<div class="ios_button">
-							<input type="checkbox" id="ios-checkbox2" name="emulate-ios-button2" class="raw-checkbox">
-							<label for="ios-checkbox2" class="emulate-ios-button"></label>
+							<input type="checkbox" id="Remote_Netbar" name="authority[]" value="Remote_Netbar" class="raw-checkbox">
+							<label for="Remote_Netbar" class="emulate-ios-button"></label>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-block btn-default">提交</button>
+					<div class="form-group form_group_btn">
+						<span>下载游戏</span>
+						<div class="ios_button">
+							<input type="checkbox" id="iDownload_Game" name="authority[]" value="Download_Game" class="raw-checkbox">
+							<label for="iDownload_Game" class="emulate-ios-button"></label>
+						</div>
+					</div>
+					<div class="form-group form_group_btn">
+						<span>详情查看</span>
+						<div class="ios_button">
+							<input type="checkbox" id="Details_View" name="authority[]" value="Details_View" class="raw-checkbox">
+							<label for="Details_View" class="emulate-ios-button"></label>
+						</div>
+					</div>
+					<div class="form-group form_group_btn">
+						<span>开机任务</span>
+						<div class="ios_button">
+							<input type="checkbox" id="Boot_Task" name="authority[]" value="Boot_Task" class="raw-checkbox">
+							<label for="Boot_Task" class="emulate-ios-button"></label>
+						</div>
+					</div>
+					<div class="form-group form_group_btn">
+						<span>安全策略</span>
+						<div class="ios_button">
+							<input type="checkbox" id="Security_Policy" name="authority[]" value="Security_Policy" class="raw-checkbox">
+							<label for="Security_Policy" class="emulate-ios-button"></label>
+						</div>
+					</div>
+					<div class="form-group form_group_btn">
+						<span>信息发布</span>
+						<div class="ios_button">
+							<input type="checkbox" id="Information_Delivery" name="authority[]" value="Information_Delivery" class="raw-checkbox">
+							<label for="Information_Delivery" class="emulate-ios-button"></label>
+						</div>
+					</div>
+					<button class="btn btn-block btn_submit">提交</button>
 				</form>
 			</div>
 		</div>
@@ -48,6 +81,7 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
+	$('.parentid').val('2860');
 	seajs.use('../static/accountMnt/src/main');
 })
 </script>

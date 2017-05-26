@@ -20,9 +20,23 @@ define(function(require, exports, module) {
         e.preventDefault();
         rowobj = null;
       })
-      $.root_.off('click', '.account_update').on("click", '.account_update', function(e) {
+      $.root_.off('click', '.btn_submit').on('click', '.btn_submit', function(e) {
         var rowobj = $(this);
-        $('.add_account_mask').show();
+        add();
+        e.preventDefault();
+        rowobj = null;
+      })
+      $.root_.off('click', '.account_update').on('click', '.account_update', function(e) {
+        var rowobj = $(this);
+        update(rowobj);
+        touchRest(rowobj);
+        e.preventDefault();
+        rowobj = null;
+      })
+      $.root_.off('click', '.account_del').on('click', '.account_del', function(e) {
+        var rowobj = $(this);
+        del(rowobj);
+        touchRest(rowobj);
         e.preventDefault();
         rowobj = null;
       })
@@ -97,30 +111,186 @@ define(function(require, exports, module) {
       })
     },
     _buildList: function() {
-      buildList();
+      buildList(true);
+      reqGroups();
     }
   };
 
-  function buildList() {
-    var html = "";
-    html += '<div class="center-block account_title">员工列表</div><a href="javascript:void(0)" class="center-block add_account"><i>'
-    +  '<svg class="svg_icon" viewBox="0 0 1024 1024">'
-    +  '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#add_remote_svg"></use>'
-    +  '</svg></i><span>添加员工账号</span></a><ul>';
- 
-    for (var i = 0; i < 20; i++) {
-      html += '<li class="list-li"><a href="javascript:void(0)" class="account_choose"><i>'
-           +  '<svg class="svg_icon" viewBox="0 0 1024 1024">'
-           +  '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#account_svg"></use>'
-           +  '</svg></i><span>员工姓名'+i+'号</span>'
-           +  '<i class="pull-right"><svg class="svg_icon" viewBox="0 0 1024 1024">'
-           +  '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use>'
-           +  '</svg></i></a>'
-           +  '<div class="account_tools"><a href="javascript:void(0);" class="account_update">修改</a><a href="javascript:void(0);" class="account_del">删除</a></div></li>';
+  function add() {
+    $('.qrpswd').val($('.pswd').val());
+    var formArr = $('.add_form').serializeArray();
+    var values = {};
+    var sysusergroupsArr = [];
+    var authorityArr = [];
+
+    $.each(formArr, function(i, o) {
+        if(o.name == "group[]") {
+          sysusergroupsArr.push(o.value);
+        }else if(o.name == "authority[]") {
+          authorityArr.push(o.value);
+        }else if(o.name == "ustate") {
+          values[o.name] = o.value == 'on' ? 1 : 2;
+        }else {
+          values[o.name] = o.value;
+        }
+    });
+
+    values['sysusergroups'] = sysusergroupsArr.join(';');
+    values['authority'] = authorityArr.join(';');
+
+    $.ajax({
+      type: 'POST',
+      url: '/ywhsrcweb/' + 'ywh_saveAction/?',
+      data: {
+        actionname: 'sys_user',
+        datajson: JSON.stringify(values),
+        operjson: JSON.stringify({"opertype":["updateInfo"]})
+      },
+      dataType: 'json',
+      success: function(msg) {
+        buildList(false);
+        $('div.add_account_mask').hide();
+        $('div.add_account_mask form')[0].reset();
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+      }
+    });
+  }
+
+  function update(rowobj) {
+    var sysusid = rowobj.data("sysusid");
+
+    $.ajax({
+      type: 'GET',
+      url: '/ywhsrcweb/' + 'ywh_queryTableList/?',
+      data: {
+        source: 'sys_user',
+        sourceid: sysusid
+      },
+      dataType: 'json',
+      success: function(msg) {
+        $.each(msg, function(k, v) {
+          if (k == "sysusergroups") {
+            var groups = v.split(';');
+            $.each(groups, function(i , o) {
+              $('.add_account_mask form input[value='+ o +']').attr("checked","true");
+            })
+          }else if (k == "authority") {
+            var auths = v.split(';');
+            $.each(auths, function(i , o) {
+              $('.add_account_mask form input[value='+ o +']').attr("checked","true");
+            })
+          }else if(k == "ustate") {
+            $('.add_account_mask form input[name='+ k +']').attr("checked","true");
+          }else {
+            $('.add_account_mask form input[name='+ k +']').val(v);
+          }
+        });
+        $('.add_account_mask form input[name=sysusid]').val(sysusid);
+        $('.add_account_mask').show();
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+      }
+    });
+  }
+
+  function del(rowobj) {
+    var sysusid = rowobj.data("sysusid");
+    $.ajax({
+      type: 'POST',
+      url: '/ywhsrcweb/' + 'ywh_delAction/?',
+      data: {
+        tname: 'sys_user',
+        tid: sysusid
+      },
+      dataType: 'json',
+      success: function(msg) {
+        rowobj.parent().parent().remove();
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+      }
+    });
+  }
+
+  function reqGroups() {
+    $.ajax({
+      type: 'GET',
+      url: '/ywhsrcweb/' + 'ywh_queryTableList/?',
+      data: {
+        source: 'sys_group',
+        qtype: 'select@online'
+      },
+      dataType: 'json',
+      success: function(msg) {
+        var html = '';
+        $.each(msg, function(i, o) {
+          html += '<div class="form-group form_group_btn">'
+               +  '<span>' + o.groupname + '</span><div class="ios_button">'
+               +  '<input type="checkbox" id="group_' + o.groupid + '" name="group[]" value="' + o.groupid + '" class="raw-checkbox">'
+               +  '<label for="group_' + o.groupid + '" class="emulate-ios-button"></label>'
+               +  '</div></div>'
+        });
+        $('form .account_groups').append(html);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+      }
+    });
+  }
+
+  function touchRest(rowobj) {
+    rowobj.parent().parent().css('-webkit-transform', "translateX(0px)");
+    rowobj.parent().parent().removeClass('touched');
+  }
+
+  function buildList(bool) {
+    if (bool) {
+      var html = "";
+          html += '<div class="center-block account_title">员工列表</div><a href="javascript:void(0)" class="center-block add_account"><i>'
+               +  '<svg class="svg_icon" viewBox="0 0 1024 1024">'
+               +  '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#add_remote_svg"></use>'
+               +  '</svg></i><span>添加员工账号</span></a><ul></ul>';
+      $('div.account_list').append(html);
+    }else {
+      $('div.account_list ul').empty();
     }
 
-    html += '</ul>';
+    $.ajax({
+      type: 'GET',
+      url: '/ywhsrcweb/' + 'ywh_queryTableList/?source=sys_user',
+      data: {
+        qtype: 'select',
+        qhstr: JSON.stringify({"qjson":[{parentid: 0}]}),
+        sortname: 'username',
+        sortorder: 'ASC'
+      },
+      dataType: 'json',
+      success: function(msg) {
+        if (msg) {
+          var list = '';
+          $.each(msg, function(i, o) {
+            list += '<li class="list-li"><a href="javascript:void(0)" class="account_choose"><i>'
+                 +  '<svg class="svg_icon" viewBox="0 0 1024 1024">'
+                 +  '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#account_svg"></use>'
+                 +  '</svg></i><span>'+ o.username +'</span>'
+                 +  '<i class="pull-right"><svg class="svg_icon" viewBox="0 0 1024 1024">'
+                 +  '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use>'
+                 +  '</svg></i></a>'
+                 +  '<div class="account_tools"><a href="javascript:void(0);" class="account_update" data-sysusid='+ o.sysusid +'>修改</a>'
+                 +  '<a href="javascript:void(0);" class="account_del" data-sysusid='+ o.sysusid +'>删除</a></div></li>';
+          });
 
-    $('div.account_list').append(html);
+          $('div.account_list ul').append(list);
+        }
+
+
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+      }
+    });
   }
 })
