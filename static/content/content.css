@@ -67,12 +67,6 @@ a:focus {
   text-decoration: underline;
 }
 
-.btn-success {
-  color: #fff;
-  background-color: #1bac1e;
-  border-color: #1bac1e;
-}
-
 .svg_icon {
   display: inline-block;
   width: 4rem;

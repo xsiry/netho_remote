@@ -35,20 +35,20 @@ define(function(require, exports, module) {
       })
       $.root_.off('click', '.btn_submit').on('click', '.btn_submit', function(e) {
         var rowobj = $(this);
-        addServer();
+        add();
         e.preventDefault();
         rowobj = null;
       })
       $.root_.off('click', '.remote_update').on('click', '.remote_update', function(e) {
         var rowobj = $(this);
-        updateServer(rowobj);
+        update(rowobj);
         touchRest(rowobj);
         e.preventDefault();
         rowobj = null;
       })
       $.root_.off('click', '.remote_del').on('click', '.remote_del', function(e) {
         var rowobj = $(this);
-        deleteServer(rowobj);
+        del(rowobj);
         touchRest(rowobj);
         e.preventDefault();
         rowobj = null;
@@ -142,8 +142,8 @@ define(function(require, exports, module) {
     $('div.' + name + '_btn').css('color', '#43b2e7').css('border-bottom', '0.5rem solid #43b2e7');
   }
 
-  function addServer() {
-    var form = $('.add_server_form').serializeArray();
+  function add() {
+    var form = $('.add_form').serializeArray();
     var values = {netbarid: _netbarid};
     $.each(form, function(i, o) {
       values[o.name] = o.value;
@@ -168,7 +168,7 @@ define(function(require, exports, module) {
     });
   }
 
-  function updateServer(rowobj) {
+  function update(rowobj) {
     var netbar_rem_id = rowobj.data("netbar_rem_id");
 
     $.ajax({
@@ -193,7 +193,7 @@ define(function(require, exports, module) {
     });
   }
 
-  function deleteServer(rowobj) {
+  function del(rowobj) {
     var netbar_rem_id = rowobj.data("netbar_rem_id");
     $.ajax({
       type: 'POST',
@@ -234,19 +234,21 @@ define(function(require, exports, module) {
       url: '/ywhsrcweb/' + 'ywh_queryTableList/?source=netbar_remote',
       data: {
         qtype: 'select@userRemoteShow',
-        qhstr: JSON.stringify({"qjson":[{"netbarid": _netbarid}]})
+        qhstr: JSON.stringify({"qjson":[{"netbarid": _netbarid}]}),
+        sortname: 'remotename',
+        sortorder: 'ASC'
       },
       dataType: 'json',
       success: function(msg) {
         if (msg) {
           var list = '';
           for (var i = 0; i < msg.length; i++) {
-          list += '<li class="list-li"><a href="javascript:void(0)" class="remote_choose" data-ip=' + msg[i].innerip + ' data-port=' + msg[i].innerport + '><i>'
-               + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
-               + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_server_svg"></use>'
-               + '</svg></i><ul><li>' + msg[i].remotename + '</li><li>' + msg[i].innerip + '</li></ul>'
-               + '</a><div class="remote_tools"><a href="javascript:void(0);" class="remote_update"  data-netbar_rem_id=' + msg[i].netbar_rem_id + '>修改</a>'
-               + '<a href="javascript:void(0);" class="remote_del"  data-netbar_rem_id=' + msg[i].netbar_rem_id + '>删除</a></div></li>';
+            list += '<li class="list-li"><a href="javascript:void(0)" class="remote_choose" data-ip=' + msg[i].innerip + ' data-port=' + msg[i].innerport + '><i>'
+                 + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
+                 + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_server_svg"></use>'
+                 + '</svg></i><ul><li>' + msg[i].remotename + '</li><li>' + msg[i].innerip + '</li></ul>'
+                 + '</a><div class="remote_tools"><a href="javascript:void(0);" class="remote_update"  data-netbar_rem_id=' + msg[i].netbar_rem_id + '>修改</a>'
+                 + '<a href="javascript:void(0);" class="remote_del"  data-netbar_rem_id=' + msg[i].netbar_rem_id + '>删除</a></div></li>';
           }
 
           $('div.remote_list ul').append(list);

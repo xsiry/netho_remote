@@ -52,7 +52,9 @@ define(function(require, exports, module) {
       data: {
         source: 'netbar_info',
         qtype: 'select@online',
-        qhstr: JSON.stringify({ qjson: [{}]})
+        qhstr: JSON.stringify({ qjson: [{}]}),
+        sortname: 'netbarname',
+        sortorder: 'ASC'
       },
       dataType: 'json',
       success: function(msg) {
