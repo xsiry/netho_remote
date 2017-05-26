@@ -18,7 +18,7 @@ define(function(require, exports, module) {
       $.root_.off('click', '.open_remote_btn').on('click', '.open_remote_btn', function(e) {
         var name = 'open_remote';
         activeBtn(name);
-        $('div.remote_list_block').show()
+        $('div.remote_list_block').show();
       })
       $.root_.off('click', '.remote_choose').on('click', '.remote_choose', function(e) {
         var rowobj = $(this);
@@ -26,11 +26,16 @@ define(function(require, exports, module) {
         var port = rowobj.data("port");
         e.preventDefault();
         rowobj = null;
-        console.log("remote_success:" + ip + ':' + port);
       })
       $.root_.off('click', '.add_remote').on('click', '.add_remote', function(e) {
         var rowobj = $(this);
         $('.remote_add_mask').show();
+        e.preventDefault();
+        rowobj = null;
+      })
+      $.root_.off('click', '.btn_submit').on('click', '.btn_submit', function(e) {
+        var rowobj = $(this);
+        addServer();
         e.preventDefault();
         rowobj = null;
       })
@@ -126,7 +131,7 @@ define(function(require, exports, module) {
       })
     },
     _buildList: function() {
-      buildRemoteList();
+      buildRemoteList(true);
     }
   };
 
@@ -135,6 +140,32 @@ define(function(require, exports, module) {
     $('div.game_download_block').hide();
     $('div.tbtn').css('color', '#000').css('border', '0');
     $('div.' + name + '_btn').css('color', '#43b2e7').css('border-bottom', '0.5rem solid #43b2e7');
+  }
+
+  function addServer() {
+    var form = $('.add_server_form').serializeArray();
+    var values = {netbarid: _netbarid};
+    $.each(form, function(i, o) {
+      values[o.name] = o.value;
+    });
+
+    $.ajax({
+      type: 'POST',
+      url: '/ywhsrcweb/' + 'ywh_saveAction/?',
+      data: {
+        actionname: 'netbar_remote',
+        datajson: JSON.stringify(values)
+      },
+      dataType: 'json',
+      success: function(msg) {
+        buildRemoteList(false);
+        $('div.remote_add_mask').hide();
+        $('div.remote_add_mask form')[0].reset();
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+      }
+    });
   }
 
   function updateServer(rowobj) {
@@ -150,7 +181,10 @@ define(function(require, exports, module) {
       },
       dataType: 'json',
       success: function(msg) {
-        console.log(msg);
+        $.each(msg[0], function(k, v) {
+          $('.remote_add_mask form input[name='+ k +']').val(v);
+        });
+        $('.remote_add_mask form input[name=netbar_rem_id]').val(netbar_rem_id);
         $('.remote_add_mask').show();
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -161,8 +195,21 @@ define(function(require, exports, module) {
 
   function deleteServer(rowobj) {
     var netbar_rem_id = rowobj.data("netbar_rem_id");
-    rowobj.parent().parent().remove();
-    alert('Delete success!');
+    $.ajax({
+      type: 'POST',
+      url: '/ywhsrcweb/' + 'ywh_delAction/?',
+      data: {
+        tname: 'netbar_remote',
+        tid: netbar_rem_id
+      },
+      dataType: 'json',
+      success: function(msg) {
+        rowobj.parent().parent().remove();
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+      }
+    });
   }
 
   function touchRest(rowobj) {
@@ -170,19 +217,22 @@ define(function(require, exports, module) {
     rowobj.parent().parent().removeClass('touched');
   }
 
-  function buildRemoteList() {
-    var html = "";
-        html += '<a href="javascript:void(0)" class="center-block add_remote"><i>'
-             + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
-             + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#add_remote_svg"></use>'
-             + '</svg></i><span>添加服务器</span></a><ul></ul>';
-    $('div.remote_list').append(html);
+  function buildRemoteList(bool) {
+    if (bool) {
+      var html = "";
+          html += '<a href="javascript:void(0)" class="center-block add_remote"><i>'
+               + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
+               + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#add_remote_svg"></use>'
+               + '</svg></i><span>添加服务器</span></a><ul></ul>';
+      $('div.remote_list').append(html);
+    }else {
+      $('div.remote_list ul').empty();
+    }
 
     $.ajax({
       type: 'GET',
-      url: '/ywhsrcweb/' + 'ywh_queryTableList/?',
+      url: '/ywhsrcweb/' + 'ywh_queryTableList/?source=netbar_remote',
       data: {
-        source: 'netbar_remote',
         qtype: 'select@userRemoteShow',
         qhstr: JSON.stringify({"qjson":[{"netbarid": _netbarid}]})
       },
