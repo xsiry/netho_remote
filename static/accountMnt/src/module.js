@@ -12,6 +12,7 @@ define(function(require, exports, module) {
       this._main();
     },
     _main: function() {
+      $('.parentid').val(_admin_id);
     },
     _bindUI: function() {
       $.root_.off('click', '.add_account').on('click', '.add_account', function(e) {
