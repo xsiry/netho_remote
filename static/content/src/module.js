@@ -29,6 +29,10 @@ define(function(require, exports, module) {
         e.preventDefault();
         rowobj = null;
       })
+      $.root_.off('input propertychange', '.input_search').on("input propertychange", '.input_search', function(e) {
+          buildNetbarList(true);
+          $('div.netbar_list ul').empty();
+      })
       $.root_.off('click', '.open_netbar_list').on("click", '.open_netbar_list', function(e) {
           $('.netbar_list_mask').show();
       })
@@ -45,38 +49,47 @@ define(function(require, exports, module) {
     }
   };
 
-  function buildNetbarList() {
+  function buildNetbarList(searchBool) {
+    var qhstrParams = { qjson: [{}]};
+    if (searchBool) {
+      var netbarname = $('.input_search').val();
+      qhstrParams = {"qjson":[{},{"netbarname": netbarname}],"qjsonkeytype":[{"netbarname":"LIKE_ALL"}]}
+    }
     $.ajax({
       type: 'POST',
       url: '/ywhsrcweb/' + 'ywh_queryTableList/?',
       data: {
         source: 'netbar_info',
         qtype: 'select@online',
-        qhstr: JSON.stringify({ qjson: [{}]}),
+        qhstr: JSON.stringify(qhstrParams),
         sortname: 'netbarname',
         sortorder: 'ASC'
       },
       dataType: 'json',
       success: function(msg) {
-       var html = "";
-       html += '<div class="form-group has-feedback search_block">'
-           + '<input type="text" class="form-control input_search" placeholder="搜索">'
-           + '<span class="glyphicon glyphicon-search form-control-feedback icon" aria-hidden="true"></span>'
-           + '</div><ul>';
+        if (!searchBool) {
+          var html = "";
+          html += '<div class="form-group has-feedback search_block">'
+               + '<input type="text" class="form-control input_search" placeholder="搜索">'
+               + '<span class="glyphicon glyphicon-search form-control-feedback icon" aria-hidden="true"></span>'
+               + '</div><ul></ul>';
 
-         if (msg) {
-           for (var i = 0; i < msg.length; i++) {
-             html += '<li><a href="javascript:void(0)" class="netbar_choose" data-netbarid=' + msg[i].netbarid + '><i>'
-                  + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
-                  + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_svg"></use>'
-                  + '</svg></i><span>' + msg[i].netbarname + '</span>'
-                  + '<i class="pull-right"><svg class="svg_icon" viewBox="0 0 1024 1024">'
-                  + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use></svg></i></a></li>';
-           }
-         }
+          $('div.netbar_list').append(html);
+        }
 
-         html += '</ul>';
-         $('div.netbar_list').append(html);
+        if (msg) {
+          var list = ''
+          for (var i = 0; i < msg.length; i++) {
+            list += '<li><a href="javascript:void(0)" class="netbar_choose" data-netbarid=' + msg[i].netbarid + '><i>'
+                 + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
+                 + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_svg"></use>'
+                 + '</svg></i><span>' + msg[i].netbarname + '</span>'
+                 + '<i class="pull-right"><svg class="svg_icon" viewBox="0 0 1024 1024">'
+                 + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use></svg></i></a></li>';
+          }
+          $('div.netbar_list ul').append(list);
+        }
+
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
