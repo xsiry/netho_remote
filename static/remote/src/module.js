@@ -151,9 +151,10 @@ define(function(require, exports, module) {
       data: {
         remid: netbar_rem_id
       },
+      dataType: 'json',
       success: function(msg) {
-        if (msg == "success") {
-          window.location.href="http://ww.yun58.vip:8086";
+        if (msg.success) {
+          window.location.href = "http://www.yun58.vip:8086";
         }
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
