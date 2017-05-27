@@ -24,6 +24,8 @@ define(function(require, exports, module) {
         var rowobj = $(this);
         var ip = rowobj.data("ip");
         var port = rowobj.data("port");
+        var netbar_rem_id = rowobj.data("netbar_rem_id");
+        openRemote(netbar_rem_id);
         e.preventDefault();
         rowobj = null;
       })
@@ -142,6 +144,24 @@ define(function(require, exports, module) {
     $('div.' + name + '_btn').css('color', '#43b2e7').css('border-bottom', '0.5rem solid #43b2e7');
   }
 
+  function openRemote(netbar_rem_id) {
+    $.ajax({
+      type: 'GET',
+      url: _addr + 'Interface/openRemoteInfo/',
+      data: {
+        remid: netbar_rem_id
+      },
+      success: function(msg) {
+        if (msg == "success") {
+          window.location.href="http://ww.yun58.vip:8086";
+        }
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown) {
+        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+      }
+    });
+  }
+
   function add() {
     var form = $('.add_form').serializeArray();
     var values = {netbarid: _netbarid};
@@ -151,7 +171,7 @@ define(function(require, exports, module) {
 
     $.ajax({
       type: 'POST',
-      url: '/ywhsrcweb/' + 'ywh_saveAction/?',
+      url: _addr + 'ywh_saveAction/?',
       data: {
         actionname: 'netbar_remote',
         datajson: JSON.stringify(values)
@@ -173,7 +193,7 @@ define(function(require, exports, module) {
 
     $.ajax({
       type: 'GET',
-      url: '/ywhsrcweb/' + 'ywh_queryTableList/?',
+      url: _addr + 'ywh_queryTableList/?',
       data: {
         source: 'netbar_remote',
         qtype: 'select',
@@ -197,7 +217,7 @@ define(function(require, exports, module) {
     var netbar_rem_id = rowobj.data("netbar_rem_id");
     $.ajax({
       type: 'POST',
-      url: '/ywhsrcweb/' + 'ywh_delAction/?',
+      url: _addr + 'ywh_delAction/?',
       data: {
         tname: 'netbar_remote',
         tid: netbar_rem_id
@@ -231,7 +251,7 @@ define(function(require, exports, module) {
 
     $.ajax({
       type: 'GET',
-      url: '/ywhsrcweb/' + 'ywh_queryTableList/?source=netbar_remote',
+      url: _addr + 'ywh_queryTableList/?source=netbar_remote',
       data: {
         qtype: 'select@userRemoteShow',
         qhstr: JSON.stringify({"qjson":[{"netbarid": _netbarid}]}),
@@ -243,7 +263,7 @@ define(function(require, exports, module) {
         if (msg) {
           var list = '';
           for (var i = 0; i < msg.length; i++) {
-            list += '<li class="list-li"><a href="javascript:void(0)" class="remote_choose" data-ip=' + msg[i].innerip + ' data-port=' + msg[i].innerport + '><i>'
+            list += '<li class="list-li"><a href="javascript:void(0)" class="remote_choose" data-netbar_rem_id=' + msg[i].netbar_rem_id + ' data-ip=' + msg[i].innerip + ' data-port=' + msg[i].innerport + '><i>'
                  + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
                  + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_server_svg"></use>'
                  + '</svg></i><ul><li>' + msg[i].remotename + '</li><li>' + msg[i].innerip + '</li></ul>'

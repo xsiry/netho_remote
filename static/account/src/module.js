@@ -18,7 +18,7 @@ define(function(require, exports, module) {
   function loadAdminConfig() {
     $.ajax({
       type: 'GET',
-      url: '/ywhsrcweb/' + 'ywh_queryTableList/?',
+      url: _addr + 'ywh_queryTableList/?',
       data: {
         source: 'sys_user',
         qtype: 'online'

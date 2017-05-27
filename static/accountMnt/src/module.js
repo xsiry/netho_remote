@@ -141,7 +141,7 @@ define(function(require, exports, module) {
 
     $.ajax({
       type: 'POST',
-      url: '/ywhsrcweb/' + 'ywh_saveAction/?',
+      url: _addr + 'ywh_saveAction/?',
       data: {
         actionname: 'sys_user',
         datajson: JSON.stringify(values),
@@ -164,7 +164,7 @@ define(function(require, exports, module) {
 
     $.ajax({
       type: 'GET',
-      url: '/ywhsrcweb/' + 'ywh_queryTableList/?',
+      url: _addr + 'ywh_queryTableList/?',
       data: {
         source: 'sys_user',
         sourceid: sysusid
@@ -201,7 +201,7 @@ define(function(require, exports, module) {
     var sysusid = rowobj.data("sysusid");
     $.ajax({
       type: 'POST',
-      url: '/ywhsrcweb/' + 'ywh_delAction/?',
+      url: _addr + 'ywh_delAction/?',
       data: {
         tname: 'sys_user',
         tid: sysusid
@@ -219,7 +219,7 @@ define(function(require, exports, module) {
   function reqGroups() {
     $.ajax({
       type: 'GET',
-      url: '/ywhsrcweb/' + 'ywh_queryTableList/?',
+      url: _addr + 'ywh_queryTableList/?',
       data: {
         source: 'sys_group',
         qtype: 'select@online'
@@ -261,7 +261,7 @@ define(function(require, exports, module) {
 
     $.ajax({
       type: 'GET',
-      url: '/ywhsrcweb/' + 'ywh_queryTableList/?source=sys_user',
+      url: _addr + 'ywh_queryTableList/?source=sys_user',
       data: {
         qtype: 'select',
         qhstr: JSON.stringify({"qjson":[{parentid: 0}]}),

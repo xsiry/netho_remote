@@ -57,7 +57,7 @@ define(function(require, exports, module) {
     }
     $.ajax({
       type: 'POST',
-      url: '/ywhsrcweb/' + 'ywh_queryTableList/?',
+      url: _addr + 'ywh_queryTableList/?',
       data: {
         source: 'netbar_info',
         qtype: 'select@online',
