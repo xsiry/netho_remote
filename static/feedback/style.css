@@ -120,3 +120,27 @@
 .z_cancel {
   border-right: 1px solid #ddd;
 }
+
+pre {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  white-space: pre-wrap;
+  word-break: normal;
+}
+
+.flex {
+  margin-top: 1.5rem;
+  background: #fff;
+  border: .1rem solid #d9d9d9;
+  border-radius: 4px;
+  max-height: 134px;
+  min-height: 95px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  outline: none;
+  font-size: 1.8rem;
+  line-height: 2rem;
+}
