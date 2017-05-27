@@ -22,7 +22,7 @@
 	overflow-x: hidden;
 	overflow-y: visible;
 	border-radius: 5px;
-	height: 350px;
+	max-height: 350px;
 	background-color: #FFFFFF;
 	display: none;
 }
@@ -100,7 +100,7 @@
 	-ms-user-select: none;
 }
 
-.svg_icon {
+.game_download_block .svg_icon {
 	display: inline-block;
 	width: 30px;
 	height: 30px;

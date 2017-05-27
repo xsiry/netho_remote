@@ -86,7 +86,6 @@ define(function(require, exports, module) {
   }
 
   function load() {
-    var qhstrParams = {"qjson":[{},{"gamename": name}],"qjsonkeytype":[{"gamename":"LIKE_ALL"}]};
     search_load = $('.search_games').dropload({
       domDown: {
         domClass: 'dropload-down',
@@ -102,7 +101,7 @@ define(function(require, exports, module) {
             source: 'games',
             page: $(".page_no").val(),
             pagesize: 20,
-            qhstr: JSON.stringify(qhstrParams),
+            qhstr: JSON.stringify({"qjson":[{},{"gamename": name}],"qjsonkeytype":[{"gamename":"LIKE_ALL"}]}),
             sortname: 'gamename',
             sortorder: 'ASC'
           },
@@ -113,6 +112,7 @@ define(function(require, exports, module) {
               $(".page_no").val(parseInt($(".page_no").val()) - 1);
             };
             if (list.length == 0) {
+              $('.search_btn').removeAttr('disabled');
               tabLoadEnd = true;
             }
             $('.search_games').show();
@@ -156,18 +156,15 @@ define(function(require, exports, module) {
   function downloadGame(gameid) {
     $.ajax({
       type: 'GET',
-      url: _addr + 'ywh_queryTableList/?',
+      url: _addr + 'ywh_saveAction',
       data: {
-        source: 'games',
-        page: 1,
-        pagesize: 10,
-        // qhstr: JSON.stringify(qhstrParams),
-        sortname: 'gamename',
-        sortorder: 'ASC'
+        actionname: 'games_down',
+        datajson: JSON.stringify({"netbarlist":[{"netbarid": _netbarid}],"gamenamelist":[{"gameid": gameid}]}),
+        operjson: JSON.stringify({"opertype":["TaskDownload"]})
       },
       dataType: 'json',
-      success : function(data) {
-        if (data) {
+      success : function(msg) {
+        if (msg.success) {
           $('a[data-gameid=' + gameid + ']').empty;
           $('a[data-gameid=' + gameid + ']').html('<svg class="svg_icon" viewBox="0 0 1024 1024" style="width:30px;height:30px;"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#download_game_success_svg"></use></svg>');
           $('a[data-gameid=' + gameid + ']').prop('disabled', 'disabled');
