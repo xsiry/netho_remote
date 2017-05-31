@@ -145,22 +145,23 @@ define(function(require, exports, module) {
   }
 
   function openRemote(netbar_rem_id) {
-    $.ajax({
-      type: 'GET',
-      url: _addr + 'Interface/openRemoteInfo/',
-      data: {
-        remid: netbar_rem_id
-      },
-      dataType: 'json',
-      success: function(msg) {
-        if (msg.success) {
-          window.location.href = "http://www.yun58.vip:8086";
-        }
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
-      }
-    });
+    // $.ajax({
+    //   type: 'GET',
+    //   url: _addr + 'Interface/openRemoteInfo/',
+    //   data: {
+    //     remid: netbar_rem_id
+    //   },
+    //   dataType: 'json',
+    //   success: function(msg) {
+    //     if (msg.success) {
+          $('iframe.remote_desktop').attr('src', "http://192.168.1.104:8080/ywhsrcweb/");
+          $('.remote_desktop_block').show();
+    //     }
+    //   },
+    //   error: function(XMLHttpRequest, textStatus, errorThrown) {
+    //     console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+    //   }
+    // });
   }
 
   function add() {

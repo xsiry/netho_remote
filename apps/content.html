@@ -78,11 +78,52 @@
   </div>
   <div class="content"></div>
   <div class="menus"></div>
+  <div class="remote_desktop_block">
+
+    <div class="remote_desktop_menus x_hide">
+      <ul>
+        <li>
+          <div class="tools_title">鼠标模式</div>
+          <label class="radio">
+            <input type="radio" name="touchedMode" value="relative" checked="checked">触控模式
+          </label>
+          <label class="radio">
+            <input type="radio" name="touchedMode" value="absolute">触屏模式
+          </label>
+        </li>
+        <li>
+          <div class="tools_title">键盘模式</div>
+          <label class="radio">
+            <input type="radio" name="imeMode" value="ime-none" checked="checked">关闭键盘
+          </label>
+          <label class="radio">
+            <input type="radio" name="imeMode" value="ime-text">系统键盘
+          </label>
+          <label class="radio">
+            <input type="radio" name="imeMode" value="ime-osk">虚拟键盘
+          </label>
+        </li>
+        <li>
+          <div class="tools_title">窗口设置</div>
+          <a href="javascript:void(0);" class="x_zoom_out">缩小</a>
+          <a href="javascript:void(0);" class="x_zoom_in">放大</a>
+        <div class="checkbox">
+          <label>
+            <input name="fitMode" type="checkbox" value="auto-fit">适应窗口
+          </label>
+        </div>
+        </li>
+        <li><a href="javascript:void(0);" class="x_login_out">退出</a></li>
+        <li><a href="javascript:void(0);" class="menus_switch">open</a></li>
+      </ul>
+    </div>
+    <iframe id="remote_desktop" class="remote_desktop" sandbox="allow-scripts allow-top-navigation allow-forms allow-same-origin" src="" name="remote_desktop" height="500px" width="100%" seamless></iframe>
+  </div>
 </body>
 <script type="text/javascript" src="../sea-modules/jquery/jquery-3.1.1.js"></script>
 <script type="text/javascript" src="../sea-modules/seajs/sea.js"></script>
 <script type="text/javascript">
-var _addr = '/';
+var _addr = '/ywhsrcweb/';
 var _netbarid = '';
 $(document).ready(function() {
   seajs.use('../static/content/src/main');

@@ -42,6 +42,64 @@ define(function(require, exports, module) {
       $.root_.off('click', '.feedback').on('click', '.feedback', function(e) {
         loadURL('../apps/feedback.html');
       })
+
+      /* 远程桌面 */
+      // 菜单
+      $.root_.off('click', '.menus_switch').on('click', '.menus_switch', function(e) {
+        var rowobj = $(this);
+        if ($('.remote_desktop_menus').is('.x_hide')) {
+          $('.remote_desktop_menus').removeClass('x_hide').addClass('x_show').find('.menus_switch').text('close');
+        }else {
+          $('.remote_desktop_menus').removeClass('x_show').addClass('x_hide').find('.menus_switch').text('open');
+        }
+        e.preventDefault();
+        rowobj = null;
+      })
+      // 鼠标模式
+      $.root_.off('change', 'input:radio[name="touchedMode"]').on('change', 'input:radio[name="touchedMode"]', function(e) {
+        var rowobj = $(this);
+        $('#remote_desktop').contents().find('#' + rowobj.val()).trigger('click');
+        e.preventDefault();
+        rowobj = null;
+      })
+      // 键盘模式
+      $.root_.off('change', 'input:radio[name="imeMode"]').on('change', 'input:radio[name="imeMode"]', function(e) {
+        var rowobj = $(this);
+        $('#remote_desktop').contents().find('#' + rowobj.val()).trigger('click');
+        e.preventDefault();
+        rowobj = null;
+      })
+      // 自适应窗口
+      $.root_.off('change', 'input:checkbox[name="fitMode"]').on('change', 'input:checkbox[name="fitMode"]', function(e) {
+        var rowobj = $(this);
+        $('#remote_desktop').contents().find('#' + rowobj.val()).trigger('click');
+        e.preventDefault();
+        rowobj = null;
+      })
+      // 缩小
+      $.root_.off('click', '.x_zoom_out').on('click', '.x_zoom_out', function(e) {
+        var rowobj = $(this);
+        $('#remote_desktop').contents().find('#zoom-out').trigger('click');
+        e.preventDefault();
+        rowobj = null;
+      })
+      // 放大
+      $.root_.off('click', '.x_zoom_in').on('click', '.x_zoom_in', function(e) {
+        var rowobj = $(this);
+        $('#remote_desktop').contents().find('#zoom-in').trigger('click');
+        e.preventDefault();
+        rowobj = null;
+      })
+      // 退出远程
+      $.root_.off('click', '.x_login_out').on('click', '.x_login_out', function(e) {
+        var rowobj = $(this);
+        $('.remote_desktop_block').hide();
+        $('#remote_desktop').contents().find('.ng-binding.logout').trigger('click');
+        setTimeout("$('#remote_desktop').contents().find('.ng-binding.ng-scope.logout.button').trigger('click')", 500);
+        setTimeout("$('iframe.remote_desktop').attr('src', '');", 1000);
+        e.preventDefault();
+        rowobj = null;
+      })
     },
     _buildMenu: function() {
       buildMenu();
