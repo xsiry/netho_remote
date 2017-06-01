@@ -44,17 +44,30 @@ define(function(require, exports, module) {
       })
 
       /* 远程桌面 */
-      $.root_.off('load', '#remote_desktop').on('load', '#remote_desktop', function(e) {
-        var iframe = $(this);
-        var ifBody = iframe.contents();
-        ifBody.find('#relative').trigger('click');
-        ifBody.find('#ime-none').trigger('click');
-        if (!ifBody.find('#auto-fit').is(':checked')) {
-          ifBody.find('#auto-fit').trigger('click');
-        }
+      $('#remote_desktop').on('load', function(e) {
+        setTimeout(function() {
+          $('#remote_desktop').contents().find('#relative').trigger('click');
+          $('#remote_desktop').contents().find('#ime-none').trigger('click');
+          if (!$('#remote_desktop').contents().find('#auto-fit').is(':checked')) {
+            $('#remote_desktop').contents().find('#auto-fit').trigger('click');
+          }
+        }, 2000);
+
+        $('#remote_desktop').contents().one('DOMNodeInserted', 'div.buttons', function(e) {
+          var rowobj = $(this);
+          $('#remote_desktop').contents().find('.logout').hide();
+          rowobj.empty().append('<button ng-class="action.className" class="ng-binding ng-scope logout button x_remote_logout">退出</button>');
+
+          rowobj.find('.x_remote_logout').off('click').on('click', function(o) {
+            $('.x_login_out').trigger('click');
+            o.preventDefault();
+          });
+          e.preventDefault();
+          rowobj = null;
+        })
         e.preventDefault();
-        iframe = null;
       })
+
       // 菜单
       $.root_.off('click', '.menus_switch').on('click', '.menus_switch', function(e) {
         var rowobj = $(this);
