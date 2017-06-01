@@ -210,7 +210,7 @@ ul>li>a>span {
   top: 0;
   right: 0;
   width: 150px;
-  height: 334px;
+  height: 344px;
   overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.7);
   text-align: center;
@@ -236,6 +236,10 @@ ul>li>a>span {
   color: #FFF;
 }
 
+.menus_switch_li {
+  border-bottom: 0 !important;
+}
+
 .menus_switch {
   display: block;
   line-height: 32px;
@@ -243,6 +247,7 @@ ul>li>a>span {
 
 .tools_title {
   border-bottom: 0.1rem solid;
+  margin-bottom: 3px;
 }
 
 .x_show {
@@ -250,21 +255,47 @@ ul>li>a>span {
 }
 
 .x_hide {
-  transform: translate(0px, -305px);
+  transform: translate(0px, -306px);
 }
 
-.x_zoom_out{
+.x_zoom{
   float: left;
-  width: 50%;
+  width: 70px;
+  margin-left: 3.4px;
+  border: 1px solid;
+  border-radius: 0.5rem;
 }
 
-.x_zoom_in{
-  float: left;
-  width: 50%;
+.x_login_out {
+  margin-left: 3.4px;
+  border: 1px solid;
+  border-radius: 0.5rem;
+}
+
+.menus_logout {
+  padding: 3px;
+}
+
+.fitMode_label{
+  line-height: 28px;
+}
+
+.fit_div {
+  margin-top: 38px !important;
+}
+
+.reverse_svg {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 iframe {
   width: 100%;
   height: 100%;
   border: 0;
+}
+
+
+input[type=checkbox], input[type=radio] {
+    margin: 8px 0 0;
 }

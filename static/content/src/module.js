@@ -44,13 +44,24 @@ define(function(require, exports, module) {
       })
 
       /* 远程桌面 */
+      $.root_.off('load', '#remote_desktop').on('load', '#remote_desktop', function(e) {
+        var iframe = $(this);
+        var ifBody = iframe.contents();
+        ifBody.find('#relative').trigger('click');
+        ifBody.find('#ime-none').trigger('click');
+        if (!ifBody.find('#auto-fit').is(':checked')) {
+          ifBody.find('#auto-fit').trigger('click');
+        }
+        e.preventDefault();
+        iframe = null;
+      })
       // 菜单
       $.root_.off('click', '.menus_switch').on('click', '.menus_switch', function(e) {
         var rowobj = $(this);
         if ($('.remote_desktop_menus').is('.x_hide')) {
-          $('.remote_desktop_menus').removeClass('x_hide').addClass('x_show').find('.menus_switch').text('close');
+          $('.remote_desktop_menus').removeClass('x_hide').addClass('x_show').find('.menus_switch .svg_icon').addClass('reverse_svg');
         }else {
-          $('.remote_desktop_menus').removeClass('x_show').addClass('x_hide').find('.menus_switch').text('open');
+          $('.remote_desktop_menus').removeClass('x_show').addClass('x_hide').find('.menus_switch .svg_icon').removeClass('reverse_svg');
         }
         e.preventDefault();
         rowobj = null;
@@ -94,9 +105,20 @@ define(function(require, exports, module) {
       $.root_.off('click', '.x_login_out').on('click', '.x_login_out', function(e) {
         var rowobj = $(this);
         $('.remote_desktop_block').hide();
-        $('#remote_desktop').contents().find('.ng-binding.logout').trigger('click');
-        setTimeout("$('#remote_desktop').contents().find('.ng-binding.ng-scope.logout.button').trigger('click')", 500);
-        setTimeout("$('iframe.remote_desktop').attr('src', '');", 1000);
+        $.ajax({
+          type: 'GET',
+          url: 'http://www.yun58.vip:8086/remotehost/api/tokens/del',
+          dataType: 'json',
+          success: function(msg) {
+            $('.remote_desktop_menus').removeClass('x_show').addClass('x_hide').find('.menus_switch .svg_icon').removeClass('reverse_svg');
+            $('#remote_desktop').empty();
+            $('#remote_desktop').attr('src', "about:blank");
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50)
+              + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+          }
+        });
         e.preventDefault();
         rowobj = null;
       })

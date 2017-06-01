@@ -154,7 +154,7 @@ define(function(require, exports, module) {
     //   dataType: 'json',
     //   success: function(msg) {
     //     if (msg.success) {
-          $('iframe.remote_desktop').attr('src', "http://192.168.1.104:8080/ywhsrcweb/");
+          $('iframe.remote_desktop').attr('src', "http://192.168.1.108:8080/ywhsrcweb/");
           $('.remote_desktop_block').show();
     //     }
     //   },
