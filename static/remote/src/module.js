@@ -12,6 +12,7 @@ define(function(require, exports, module) {
       this._main();
     },
     _main: function() {
+      inputValidator();
       $('.open_remote_btn').click();
     },
     _bindUI: function() {
@@ -32,6 +33,7 @@ define(function(require, exports, module) {
       $.root_.off('click', '.add_remote').on('click', '.add_remote', function(e) {
         var rowobj = $(this);
         $('.remote_add_mask').show();
+        $('.add_account_block').animate({ scrollTop: 0 }, 0);
         e.preventDefault();
         rowobj = null;
       })
@@ -137,6 +139,85 @@ define(function(require, exports, module) {
     }
   };
 
+  function inputValidator() {
+    $('.add_form').bootstrapValidator({
+      message: '该项不能为空',
+      fields: {
+        remotename: {
+          message: '请输入服务器名称',
+          validators: {
+            notEmpty: {
+              message: '请输入服务器名称'
+            }
+          }
+        },
+        outip: {
+          message: '请输入外网IP',
+          validators: {
+            notEmpty: {
+              message: '请输入外网IP'
+            },
+            regexp: {
+              regexp: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/,
+              message: '外网IP地址格式不合法'
+            }
+          }
+        },
+        outport: {
+          validators: {
+            notEmpty: {
+              message: '请输入外网端口'
+            },
+            regexp: {
+              regexp: /^[0-9]+$/,
+              message: '外网端口只能由数字组成'
+            }
+          }
+        },
+        innerip: {
+          message: '请输入内网IP',
+          validators: {
+            notEmpty: {
+              message: '请输入内网IP'
+            },
+            regexp: {
+              regexp: /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/,
+              message: '内网IP地址格式不合法'
+            }
+          }
+        },
+        innerport: {
+          validators: {
+            notEmpty: {
+              message: '请输入内网端口'
+            },
+            regexp: {
+              regexp: /^[0-9]+$/,
+              message: '内网端口只能由数字组成'
+            }
+          }
+        },
+        account: {
+          message: '请输入登陆账号',
+          validators: {
+            notEmpty: {
+              message: '请输入登陆账号'
+            }
+          }
+        },
+        pwd: {
+          message: '请输入登陆密码',
+          validators: {
+            notEmpty: {
+              message: '请输入登陆密码'
+            }
+          }
+        }
+      }
+    });
+  }
+
+
   function activeBtn(name) {
     $('div.remote_list_block').hide();
     $('div.game_download_block').hide();
@@ -165,6 +246,11 @@ define(function(require, exports, module) {
   }
 
   function add() {
+    var valid = $(".add_form").data('bootstrapValidator').isValid();
+    if (valid == false) {
+      $(".add_form").data('bootstrapValidator').validate();
+      return;
+    }
     var form = $('.add_form').serializeArray();
     var values = {netbarid: _netbarid};
     $.each(form, function(i, o) {
@@ -208,6 +294,8 @@ define(function(require, exports, module) {
         });
         $('.remote_add_mask form input[name=netbar_rem_id]').val(netbar_rem_id);
         $('.remote_add_mask').show();
+        $(".add_form").data('bootstrapValidator').validate();
+        $('.add_account_block').animate({ scrollTop: 0 }, 0);
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
