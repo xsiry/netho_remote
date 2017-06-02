@@ -299,3 +299,8 @@ iframe {
 input[type=checkbox], input[type=radio] {
     margin: 8px 0 0;
 }
+
+.btn.focus, .btn:focus, .btn:hover {
+    color: #FFF;
+    text-decoration: none;
+}

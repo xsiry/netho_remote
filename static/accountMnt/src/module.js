@@ -12,12 +12,14 @@ define(function(require, exports, module) {
       this._main();
     },
     _main: function() {
+      inputValidator();
       $('.parentid').val(_admin_id);
     },
     _bindUI: function() {
       $.root_.off('click', '.add_account').on('click', '.add_account', function(e) {
         var rowobj = $(this);
         $('.add_account_mask').show();
+        $('.add_account_block').animate({ scrollTop: 0 }, 0);
         e.preventDefault();
         rowobj = null;
       })
@@ -30,6 +32,7 @@ define(function(require, exports, module) {
       $.root_.off('click', '.account_update').on('click', '.account_update', function(e) {
         var rowobj = $(this);
         update(rowobj);
+        $('.add_account_block').animate({ scrollTop: 0 }, 0);
         touchRest(rowobj);
         e.preventDefault();
         rowobj = null;
@@ -117,12 +120,50 @@ define(function(require, exports, module) {
     }
   };
 
+  function inputValidator() {
+    $('.add_form').bootstrapValidator({
+      message: '该项不能为空',
+      fields: {
+        sysname: {
+          message: '请输入员工姓名',
+          validators: {
+            notEmpty: {
+              message: '请输入员工姓名'
+            }
+          }
+        },
+        username: {
+          message: '请输入登陆账号',
+          validators: {
+            notEmpty: {
+              message: '请输入登陆账号'
+            }
+          }
+        },
+        pswd: {
+          validators: {
+            notEmpty: {
+              message: '请输入登陆密码'
+            }
+          }
+        }
+      }
+    });
+  }
+
   function add() {
+    var valid = $(".add_form").data('bootstrapValidator').isValid();
+    if (valid == false) {
+      $(".add_form").data('bootstrapValidator').validate();
+      return;
+    }
     $('.qrpswd').val($('.pswd').val());
     var formArr = $('.add_form').serializeArray();
     var values = {};
     var sysusergroupsArr = [];
     var authorityArr = [];
+
+    values['ustate'] = $('#ustate').checked ? 1 : 2;
 
     $.each(formArr, function(i, o) {
         if(o.name == "group[]") {
@@ -190,6 +231,7 @@ define(function(require, exports, module) {
         });
         $('.add_account_mask form input[name=sysusid]').val(sysusid);
         $('.add_account_mask').show();
+        $(".add_form").data('bootstrapValidator').validate();
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
