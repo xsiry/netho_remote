@@ -32,7 +32,6 @@ define(function(require, exports, module) {
       $.root_.off('click', '.account_update').on('click', '.account_update', function(e) {
         var rowobj = $(this);
         update(rowobj);
-        $('.add_account_block').animate({ scrollTop: 0 }, 0);
         touchRest(rowobj);
         e.preventDefault();
         rowobj = null;
@@ -232,6 +231,7 @@ define(function(require, exports, module) {
         $('.add_account_mask form input[name=sysusid]').val(sysusid);
         $('.add_account_mask').show();
         $(".add_form").data('bootstrapValidator').validate();
+        $('.add_account_block').animate({ scrollTop: 0 }, 0);
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
