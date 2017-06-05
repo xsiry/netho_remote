@@ -74,7 +74,11 @@
     </span>
   </div>
   <div class="netbar_list_mask">
-    <div class="center-block netbar_list"></div>
+    <article class="netbar_block">
+      <section class="netbar_list" style="display:block">
+      </section>
+    </article>
+    <input type="hidden" name="pageNo" class="page_no" value="1" />
   </div>
   <div class="netbar_list_btn">
     <a href="javascript:void(0)" class="open_netbar_list">
@@ -136,6 +140,7 @@
   </div>
 </body>
 <script type="text/javascript" src="../sea-modules/jquery/jquery-3.1.1.js"></script>
+<script type="text/javascript" src="../sea-modules/dropload/dropload.js"></script>
 <script src="../sea-modules/bootstrap-validator/bootstrapValidator.js"></script>
 <script type="text/javascript" src="../sea-modules/seajs/sea.js"></script>
 <script type="text/javascript">

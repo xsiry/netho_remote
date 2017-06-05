@@ -100,12 +100,16 @@ a:focus {
   padding-bottom: 6.5rem;
   padding-top: 5rem;
 }
-
-.netbar_list {
+.netbar_block {
+  overflow-x: hidden;
+  overflow-y: auto;
   width: 100%;
   height: 100%;
+}
+.netbar_list {
+  width: 100%;
   padding: 0 1.5rem;
-  overflow-y: auto;
+  overflow-y: visible;
   background-color: #fff;
 }
 
@@ -145,6 +149,7 @@ a:focus {
 
 ul {
   padding: 0;
+  margin: 0;
 }
 
 ul>li {
@@ -186,6 +191,10 @@ ul>li>a>span {
   vertical-align: middle;
   -webkit-animation: rotate 0.75s linear infinite;
   animation: rotate 0.75s linear infinite;
+}
+
+.dropload-down {
+  background-color: #FFF;
 }
 
 .remote_desktop_block {

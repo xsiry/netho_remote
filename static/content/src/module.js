@@ -1,5 +1,7 @@
 define(function(require, exports, module) {
   $.root_ = $('body');
+  var _qhstrParams, _netbarlist, _tabLoadEnd;
+
   module.exports = {
     init: function() {
       this._bindUI();
@@ -30,6 +32,17 @@ define(function(require, exports, module) {
         rowobj = null;
       })
       $.root_.off('input propertychange', '.input_search').on("input propertychange", '.input_search', function(e) {
+          _tabLoadEnd = false;
+          if (_netbarlist != null) {
+            var netbarname = $('.input_search').val();
+            _qhstrParams = {"qjson":[{},{"netbarname": netbarname}],"qjsonkeytype":[{"netbarname":"LIKE_ALL"}]}
+            $(".page_no").val(1);
+            $('.netbar_block section ul').empty();
+            _netbarlist.unlock();
+            _netbarlist.noData(false);
+            _netbarlist.resetload();
+            return;
+          };
           buildNetbarList(true);
           $('div.netbar_list ul').empty();
       })
@@ -143,49 +156,74 @@ define(function(require, exports, module) {
   };
 
   function buildNetbarList(searchBool) {
-    var qhstrParams = { qjson: [{}]};
-    if (searchBool) {
-      var netbarname = $('.input_search').val();
-      qhstrParams = {"qjson":[{},{"netbarname": netbarname}],"qjsonkeytype":[{"netbarname":"LIKE_ALL"}]}
+    if (!searchBool) {
+      _qhstrParams = { qjson: [{}]};
+      var html = "";
+      html += '<div class="form-group has-feedback search_block">'
+           + '<input type="text" class="form-control input_search" placeholder="搜索">'
+           + '<span class="glyphicon glyphicon-search form-control-feedback icon" aria-hidden="true"></span>'
+           + '</div><ul></ul>';
+
+      $('section.netbar_list').append(html);
     }
-    $.ajax({
-      type: 'POST',
-      url: _addr + 'ywh_queryTableList/?',
-      data: {
-        source: 'netbar_info',
-        qtype: 'select@online',
-        qhstr: JSON.stringify(qhstrParams),
-        sortname: 'netbarname',
-        sortorder: 'ASC'
+    _netbarlist = $('.netbar_block').dropload({
+      domDown: {
+        domClass: 'dropload-down',
+        domRefresh: '<div class="dropload-refresh">上拉加载更多</div>',
+        domLoad: '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
+        domNoData: '<div class="dropload-noData">已无数据</div>'
       },
-      dataType: 'json',
-      success: function(msg) {
-        if (!searchBool) {
-          var html = "";
-          html += '<div class="form-group has-feedback search_block">'
-               + '<input type="text" class="form-control input_search" placeholder="搜索">'
-               + '<span class="glyphicon glyphicon-search form-control-feedback icon" aria-hidden="true"></span>'
-               + '</div><ul></ul>';
+      loadDownFn: function(me) {
+        $.ajax({
+          type: 'GET',
+          url: _addr + 'ywh_queryTableList/?',
+          data: {
+            source: 'netbar_info',
+            page: $(".page_no").val(),
+            pagesize: 20,
+            qhstr: JSON.stringify(_qhstrParams),
+            sortname: 'netbarname',
+            sortorder: 'ASC'
+          },
+          dataType: 'json',
+          success: function(data) {
+            var list = data.Rows;
+            if (list == null) {
+              $(".page_no").val(parseInt($(".page_no").val()) - 1);
+            };
+            if (list.length == 0) {
+              _tabLoadEnd = true;
+            }
+            $('.netbar_block').show();
+            setTimeout(function() {
+              if (_tabLoadEnd) {
+                me.resetload();
+                me.lock();
+                me.noData();
+                me.resetload();
+                return;
+              }
+              var result = ''
+              for (var i = 0; i < list.length; i++) {
+                result += '<li><a href="javascript:void(0)" class="netbar_choose" data-netbarid=' + list[i].netbarid + '><i>'
+                     + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
+                     + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_svg"></use>'
+                     + '</svg></i><span>' + list[i].netbarname + '</span>'
+                     + '<i class="pull-right"><svg class="svg_icon" viewBox="0 0 1024 1024">'
+                     + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use></svg></i></a></li>';
+              }
+              $('section.netbar_list ul').append(result);
+              me.resetload();
+            }, 300);
+            $(".page_no").val(parseInt($(".page_no").val()) + 1);
 
-          $('div.netbar_list').append(html);
-        }
-
-        if (msg) {
-          var list = ''
-          for (var i = 0; i < msg.length; i++) {
-            list += '<li><a href="javascript:void(0)" class="netbar_choose" data-netbarid=' + msg[i].netbarid + '><i>'
-                 + '<svg class="svg_icon" viewBox="0 0 1024 1024">'
-                 + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#remote_svg"></use>'
-                 + '</svg></i><span>' + msg[i].netbarname + '</span>'
-                 + '<i class="pull-right"><svg class="svg_icon" viewBox="0 0 1024 1024">'
-                 + '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use></svg></i></a></li>';
+          },
+          error: function() {
+            loading = true;
+            $(".page_no").val(parseInt($(".page_no").val()) - 1);
+            console.log("查询数据出错啦，请刷新再试");
           }
-          $('div.netbar_list ul').append(list);
-        }
-
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-        console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
+        });
       }
     });
   }
