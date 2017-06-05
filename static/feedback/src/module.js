@@ -65,7 +65,12 @@ define(function(require, exports, module) {
       cxt.drawImage(img, 0, 0, 110, 110);
       var imgData = canvas.toDataURL("image/jpeg", 0.9);
       var imgBase64 = imgData.split(',')[1];
-      _files.push({filename: o.filename, data: imgBase64});
+      _files.push({filename: o.filename, base64Str: imgBase64});
+
+      var length = $('.z_photo').children('.x_canvas').length;
+      if (length == 5) {
+        $('.x_add_div').hide();
+      };
     }
   }
 
@@ -92,7 +97,7 @@ define(function(require, exports, module) {
       type: 'POST',
       url: _addr + 'feedbackSubmit/?',
       data: {
-        'msg' : msg,
+        'questions' : msg,
         'imgs': JSON.stringify(uploadImg)
       },
       dataType: 'json',

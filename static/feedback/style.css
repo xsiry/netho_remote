@@ -17,7 +17,8 @@
 }
 
 .feedback_main button {
-	margin-top: 250px;
+  position: relative;
+  top: 10px;
 }
 
 /*图片上传*/
@@ -45,7 +46,6 @@
 
 .x_add_div {
   margin-top: 7px;
-  margin-bottom: 12px;
   width: 110px;
   height: 110px;
   float: left;
@@ -59,6 +59,8 @@
 .x_canvas {
   position: relative;
   float: left;
+  width: 110px;
+  height: 110px;
   margin-left: 10px;
   margin-top: 10px;
 }
