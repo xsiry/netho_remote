@@ -115,7 +115,7 @@ a:focus {
 
 .search_block {
   width: 100%;
-  position: absolute;
+  position: fixed;
   top: 0rem;
   left: 0rem;
 }

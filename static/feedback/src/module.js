@@ -44,7 +44,7 @@ define(function(require, exports, module) {
 
   function createCanvas(o) {
     var length = $('.z_photo').children('.x_canvas').length;
-    if (length == 5) {
+    if (length == 3) {
       $('.x_add_div').hide();
       return;
     };
@@ -68,7 +68,7 @@ define(function(require, exports, module) {
       _files.push({filename: o.filename, base64Str: imgBase64});
 
       var length = $('.z_photo').children('.x_canvas').length;
-      if (length == 5) {
+      if (length == 3) {
         $('.x_add_div').hide();
       };
     }
@@ -88,6 +88,7 @@ define(function(require, exports, module) {
   }
 
   function submitFeedBack() {
+    $('.btn_submit').attr('disabled', 'disabled').val('正在提交..')
     var msg = $('pre.flex').text();
     var uploadImg = _files;
 
@@ -95,16 +96,17 @@ define(function(require, exports, module) {
 
     $.ajax({
       type: 'POST',
-      url: _addr + 'feedbackSubmit/?',
+      url: _addr + 'ywh_saveAction/?',
       data: {
-        'questions' : msg,
-        'imgs': JSON.stringify(uploadImg)
+        actionname: 'user_questions',
+        datajson: JSON.stringify({questions: msg, imgs: uploadImg})
       },
       dataType: 'json',
       success: function(msg) {
-        console.log("success");
+        $('.account_bbtn').trigger('click');
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
+        $('.btn_submit').removeAttr('disabled').val('提交失败');
         console.log("请求对象XMLHttpRequest: " + XMLHttpRequest.responseText.substring(0, 50) + " ,错误类型textStatus: " + textStatus + ",异常对象errorThrown: " + errorThrown.substring(0, 50));
       }
     });
