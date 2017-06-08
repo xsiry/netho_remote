@@ -11,7 +11,7 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="description" content="">
   <meta name="author" content="xsriy">
-  <title>方格子·网吧远程</title>
+  <title>方格子·网吧云维护</title>
   <!-- Bootstrap core CSS -->
   <link href="sea-modules/bootstrap/bootstrap.css" rel="stylesheet" />
   <!-- bootstrapValidator core CSS -->
@@ -22,7 +22,15 @@
   <link href="static/images/favicon.ico" rel="icon" type="image/x-icon" />
   <link href="static/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
-
+<svg class="txp_svg_sprite txp_svg_sprite_head" display="none"
+  version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="username_svg">
+    <path d="M149.990594 958.716134c-0.533143-7.267521-0.808412-14.59644-0.808412-21.982664 0-181.139523 162.758897-328.506872 362.817306-328.506872 200.057385 0 362.818329 147.368372 362.818329 328.506872 0 7.387247-0.276293 14.716166-0.808412 21.982664l61.743226 0c0.436952-7.29515 0.663102-14.623046 0.663102-21.982664 0-53.088102-11.375072-104.572684-33.81413-153.023162-21.564132-46.563502-52.374858-88.326675-91.572602-124.129088-62.09115-56.70856-139.940193-93.641727-224.406956-107.349937 100.768031-31.966039 174.040848-126.878712 174.040848-238.695381 0-137.967258-111.549585-250.212692-248.663406-250.212692-137.112798 0-248.663406 112.245434-248.663406 250.212692 0 111.816668 73.27384 206.729342 174.040848 238.695381-84.466764 13.70821-162.316829 50.641377-224.406956 107.349937-39.198767 35.801391-70.00847 77.565587-91.572602 124.129088-22.437012 48.450479-33.81413 99.93506-33.81413 153.023162 0 7.359618 0.227174 14.688537 0.663102 21.982664L149.990594 958.716134zM326.770833 313.534879c0-102.771665 83.093487-186.381921 185.228655-186.381921s185.228655 83.610256 185.228655 186.381921c0 102.772688-83.092463 186.382944-185.228655 186.382944S326.770833 416.307567 326.770833 313.534879z" fill="#41b3e7" />
+  </symbol>
+  <symbol id="password_svg">
+    <path d="M498.871795 78.769231c126.030769 0 227.555556 101.524786 227.555556 227.555556l0 70.017094-455.111111 0 0-70.017094C271.316239 180.294017 372.841026 78.769231 498.871795 78.769231M498.871795 26.25641c-154.037607 0-280.068376 126.030769-280.068376 280.068376l0 122.529915 560.136752 0 0-122.529915C778.940171 152.287179 652.909402 26.25641 498.871795 26.25641L498.871795 26.25641z" fill="#41b3e7" /><path d="M813.948718 428.854701l0 385.094017c0 57.764103-47.261538 105.025641-105.025641 105.025641l-420.102564 0c-57.764103 0-105.025641-47.261538-105.025641-105.025641l0-385.094017L813.948718 428.854701M866.461538 376.34188l-735.179487 0 0 437.606838c0 87.521368 70.017094 157.538462 157.538462 157.538462l420.102564 0c87.521368 0 157.538462-70.017094 157.538462-157.538462L866.461538 376.34188 866.461538 376.34188z" fill="#41b3e7" /><path d="M507.623932 603.897436c14.003419 0 26.25641 12.252991 26.25641 26.25641l0 105.025641c0 14.003419-12.252991 26.25641-26.25641 26.25641s-26.25641-12.252991-26.25641-26.25641l0-105.025641C481.367521 616.150427 493.620513 603.897436 507.623932 603.897436z" fill="#41b3e7" />
+  </symbol>
+</svg>
 <body data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-6" data-genuitec-path="/weChat/WebRoot/login.html">
   <header data-genuitec-lp-enabled="false" data-genuitec-file-id="wc1-6" data-genuitec-path="/weChat/WebRoot/login.html"></header>
   <section>
@@ -32,11 +40,19 @@
         <!-- 方便展示，暂时使用get -->
         <div class="form-group has-feedback">
           <input type="text" id="inputUsername" name='username' class="form-control input-opacity" placeholder="联盟账号" required autofocus>
-          <span class="glyphicon glyphicon-user form-control-feedback icon" aria-hidden="true"></span>
+          <span class="form-control-feedback icon" aria-hidden="true">
+            <svg class="svg_icon" viewBox="0 0 1024 1100">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#username_svg"></use>
+            </svg>
+          </span>
         </div>
         <div class="form-group has-feedback">
           <input type="password" id="inputPassword" name='password' class="form-control input-opacity" placeholder="密码" required>
-          <span class="glyphicon glyphicon-lock form-control-feedback icon" aria-hidden="true"></span>
+          <span class="form-control-feedback icon" aria-hidden="true">
+            <svg class="svg_icon" viewBox="0 0 1024 1100">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#password_svg"></use>
+            </svg>
+          </span>
         </div>
         <div class="checkbox x-checkbox">
           <label class="pull-left">
@@ -44,7 +60,7 @@
             <span><strong style="font-family: '微软雅黑';">记住账号</strong></span>
           </label>
           <label class="pull-right">
-            <input type="checkbox" class="checkbox style-0" id="rmbPassWord" name="saveCookie">
+            <input type="checkbox" class="checkbox style-0" id="rmbPassWord" name="saveCookie" checked>
             <span><strong style="font-family: '微软雅黑';">记住密码</strong></span>
           </label>
         </div>
@@ -57,7 +73,7 @@
     <!-- /container -->
   </section>
   <footer>
-    <p>上海网恒文化传播有限公司</p>
+    <div><p>上海网恒文化传播有限公司</p></div>
   </footer>
 </body>
 <!-- JQuery core JS -->
