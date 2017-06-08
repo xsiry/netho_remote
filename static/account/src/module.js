@@ -25,7 +25,7 @@ define(function(require, exports, module) {
       },
       dataType: 'json',
       success: function(msg) {
-        $('div.admin_info .admin_name').text(msg.username);
+        $('div.admin_info .admin_name').text(msg.sysname);
         _admin_id = msg.sysusid;
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
