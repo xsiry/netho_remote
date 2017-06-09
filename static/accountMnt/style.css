@@ -2,7 +2,7 @@
   position: relative;
   height: 100%;
   width: 100%;
-  padding-bottom: 6rem;
+  padding-bottom: 58px;
 }
 
 .account_list_block {
@@ -21,7 +21,7 @@
 .account_title {
   line-height: 4rem;
   border-bottom: 1px solid #d9d9d9;
-  font-size: 2rem;
+  font-size: 1.6rem;
   padding: 0 1.5rem;
 }
 
@@ -32,7 +32,7 @@
 .account_list>ul>li {
   transition: transform .1s linear;
   list-style-type: none;
-  font-size: 2rem;
+  font-size: 1.6rem;
   line-height: 4rem;
   border: 0;
   -webkit-transform: translateX(0px);
@@ -61,7 +61,7 @@
 .add_account>span {
   color: #c8c8c8;
   line-height: 4rem;
-  font-size: 2rem;
+  font-size: 1.6rem;
   margin-left: 1rem;
 }
 
@@ -92,7 +92,7 @@
 .add_account_block>form>label {
   border-bottom: 0.1rem solid #d8d8d8;
   width: 100%;
-  font-size: 2rem;
+  font-size: 1.6rem;
   color: #666666;
 }
 
@@ -130,24 +130,25 @@
 }
 
 .add_account_block>form label {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
 }
 
 .add_account_block>form div.form_group_btn {
   height: 3.5rem;
   border-bottom: 0.1rem solid #d8d8d8;
+  margin-bottom: 0px;
 }
 
 .add_account_block>form>div span {
   float: left;
-  font-size: 2rem;
+  font-size: 1.6rem;
   color: #999999;
   line-height: 3rem;
 }
 
 .add_account_block>form>div div.ios_button {
   float: right;
-  padding-top: 0.4rem;
+  padding-top: 0.5rem;
 }
 
 

@@ -6,7 +6,11 @@
 
 .admin_img {
   float: left;
-  padding: 0.5rem 2.5rem;
+  padding: 0.5rem 1rem 0rem 2rem;
+}
+
+.admin_img>img {
+  width: 85px;
 }
 
 .admin_info {
@@ -29,4 +33,14 @@
 
 .account_menus {
   display: block;
+}
+
+.account_menus>ul>li {
+  width: 95%;
+  float: right;
+  padding-right: 10px;
+}
+
+.account_menus>ul>li .svg_icon {
+  width: 30px;
 }

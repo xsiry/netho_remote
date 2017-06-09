@@ -163,7 +163,7 @@ form div {
 
 .subimt_btn {
   height: 50px;
-  width: 99%;
+  width: 100%;
   margin: 0 auto;
   margin-top: 7rem;
   background-color: #41b3e7;
@@ -221,7 +221,7 @@ form div {
 }
 
 .header img {
-  width: 100px;
+  width: 85px;
 }
 
 .has-feedback .form-control {

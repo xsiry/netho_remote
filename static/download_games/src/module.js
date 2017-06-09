@@ -78,7 +78,7 @@ define(function(require, exports, module) {
     $.each(mData, function(index, obj) {
       var row = '<div class="row row_col top_p_right">'
           + '<div class="col-xs-3 col-sm-3 col-md-3 text-center">'+ ((index <= 2) ? '<i><svg class="svg_icon" viewBox="0 -140 1024 1100"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#top_hot_svg"></use></svg></i>' : (index+1)) +'</div>'
-          + '<div class="col-xs-9 col-sm-9 col-md-9 text-left">'+ obj.gamename +'</div>'
+          + '<div class="col-xs-9 col-sm-9 col-md-9 text-right">'+ obj.gamename +'</div>'
           + '</div>';
 
       $('div.top_games').append(row);

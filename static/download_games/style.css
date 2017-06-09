@@ -17,7 +17,7 @@
 .search_games {
 	margin: 0 auto;
 	margin-top: 12px;
-	font-size: 16px;
+	font-size: 1.6rem;
 	width: 95%;
 	overflow-x: hidden;
 	overflow-y: visible;
@@ -32,13 +32,13 @@
 }
 
 .search_btn {
-	font-size: 13px;
+	font-size: 1.6rem;
 	margin-left: -26px;
 }
 
 .top_games {
 	width: 95%;
-	font-size: 2rem;
+	font-size: 1.6rem;
 	height: 135px;
 	overflow: hidden;
 	transition: height 1s;
@@ -55,7 +55,7 @@
 
 .top_detail_btn {
 	width: 95%;
-	font-size: 16px;
+	font-size: 1.6rem;
 	line-height: 32px;
 	text-align: center;
 	background-color: #FFFFFF;
