@@ -85,7 +85,7 @@
   background-color: #FFF;
   width: 100%;
   height: 100%;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 20px 1rem;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -99,12 +99,16 @@
   width: 100%;
   font-size: 1.6rem;
   color: #666666;
+  padding-top: 15px;
 }
 
 .add_account_block>form button {
   border-radius: 0;
+  height: 50px;
   background-color: #43b2e7;
   color: #fff;
+  font-size: 1.6rem;
+  margin-top: 20px;
 }
 
 .account_tools {
@@ -136,10 +140,11 @@
 
 .add_account_block>form label {
   font-size: 1.6rem;
+  margin: 0px;
 }
 
 .add_account_block>form div.form_group_btn {
-  height: 3.5rem;
+  height: 50px;
   border-bottom: 0.1rem solid #d8d8d8;
   margin-bottom: 0px;
 }
@@ -148,12 +153,12 @@
   float: left;
   font-size: 1.6rem;
   color: #999999;
-  line-height: 3rem;
+  line-height: 50px;
 }
 
 .add_account_block>form>div div.ios_button {
   float: right;
-  padding-top: 0.5rem;
+  margin-top: 11px;
 }
 
 
@@ -163,8 +168,8 @@
 
 .emulate-ios-button {
   display: block;
-  width: 5rem;
-  height: 2.2rem;
+  width: 60px;
+  height: 26px;
   background: #ccc;
   border-radius: 5rem;
   cursor: pointer;
@@ -182,14 +187,14 @@
 .emulate-ios-button:after {
   content: '';
   display: block;
-  width: 2rem;
-  height: 2rem;
+  width: 24px;
+  height: 24px;
   border-radius: 100%;
   background: #fff;
   box-shadow: 0 1px 1px rgba(0, 0, 0, .1);
   position: absolute;
-  left: .2rem;
-  top: .1rem;
+  left: 1px;
+  top: 1px;
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
   -webkit-transition: all .3s ease;
@@ -197,7 +202,7 @@
 }
 
 .emulate-ios-button:active:after {
-  width: 2rem;
+  width: 24px;
 }
 
 
@@ -207,8 +212,8 @@
 
 .raw-checkbox {
   display: none;
-  height: 2rem;
-  width: 2rem;
+  width: 24px;
+  height: 24px;
 }
 
 .raw-checkbox:checked+label {

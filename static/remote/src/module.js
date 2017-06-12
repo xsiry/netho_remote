@@ -32,6 +32,7 @@ define(function(require, exports, module) {
       })
       $.root_.off('click', '.add_remote').on('click', '.add_remote', function(e) {
         var rowobj = $(this);
+        $('.remote_list_block').css('overflow-y', 'hidden');
         $('.remote_add_mask').show();
         $('.add_account_block').animate({ scrollTop: 0 }, 0);
         e.preventDefault();
@@ -267,6 +268,7 @@ define(function(require, exports, module) {
       dataType: 'json',
       success: function(msg) {
         buildRemoteList(false);
+        $('.remote_list_block').css('overflow-y', 'scroll');
         $('div.remote_add_mask').hide();
         $('div.remote_add_mask form')[0].reset();
       },

@@ -19,6 +19,8 @@
 .feedback_main button {
   position: relative;
   top: 10px;
+  height: 50px;
+  font-size: 1.6rem;
 }
 
 /*图片上传*/

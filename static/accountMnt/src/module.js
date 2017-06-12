@@ -18,6 +18,7 @@ define(function(require, exports, module) {
     _bindUI: function() {
       $.root_.off('click', '.add_account').on('click', '.add_account', function(e) {
         var rowobj = $(this);
+        $('.account_list_block').css('overflow-y', 'hidden');
         $('.add_account_mask').show();
         $('.add_account_block').animate({ scrollTop: 0 }, 0);
         e.preventDefault();
@@ -190,6 +191,7 @@ define(function(require, exports, module) {
       dataType: 'json',
       success: function(msg) {
         buildList(false);
+        $('.account_list_block').css('overflow-y', 'scroll');
         $('div.add_account_mask').hide();
         $('div.add_account_mask form')[0].reset();
       },

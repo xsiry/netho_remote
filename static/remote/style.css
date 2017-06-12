@@ -125,6 +125,8 @@
 	width: 100%;
 	height: 100%;
 	padding: 0.5rem 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .remote_add_block .form-control {
@@ -140,6 +142,8 @@
 
 .remote_add_block>form>button {
 	border-radius: 0;
+  height: 50px;
+  font-size: 1.6rem;
 	background-color: #43b2e7;
 	color: #fff;
 }
