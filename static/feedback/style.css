@@ -24,8 +24,8 @@
 /*图片上传*/
 .container {
   width: 100%;
-  min-height: 14rem;
-  max-height: 25rem;
+  min-height: 15rem;
+  max-height: 30rem;
   overflow: hidden;
   clear: both;
   padding: 0;

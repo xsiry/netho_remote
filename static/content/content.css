@@ -342,3 +342,43 @@ input[type=checkbox], input[type=radio] {
     color: #FFF;
     text-decoration: none;
 }
+
+.form-control {
+  border: 1px solid #43b2e7;
+  -webkit-box-shadow: initial;
+  box-shadow: initial;
+  -webkit-transition: initial;
+  -o-transition: initial;
+  transition: initial;
+}
+
+.form-control:focus {
+  border-color: #43b2e7;
+  outline: 0;
+  -webkit-box-shadow: initial;
+  box-shadow: initial;
+}
+
+.has-success .form-control {
+    border-color: #3c763d;
+    -webkit-box-shadow: initial;
+    box-shadow: initial;
+}
+
+.has-success .form-control:focus {
+    border-color: #2b542c;
+    -webkit-box-shadow: initial;
+    box-shadow: initial;
+}
+
+.has-error .form-control {
+    border-color: #a94442;
+    -webkit-box-shadow: initial;
+    box-shadow: initial;
+}
+
+.has-error .form-control:focus {
+    border-color: #a94442;
+    -webkit-box-shadow: initial;
+    box-shadow: initial;
+}
