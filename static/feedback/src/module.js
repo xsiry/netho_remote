@@ -63,7 +63,7 @@ define(function(require, exports, module) {
     img.src = o.data;
     img.onload = function() {
       cxt.drawImage(img, 0, 0, 110, 110);
-      var imgData = canvas.toDataURL("image/jpeg", 0.9);
+      var imgData = canvas.toDataURL("image/jpeg", 1.0);
       var imgBase64 = imgData.split(',')[1];
       _files.push({filename: o.filename, base64Str: imgBase64});
 
