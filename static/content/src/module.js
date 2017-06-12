@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
   $.root_ = $('body');
-  var _qhstrParams, _netbarlist, _tabLoadEnd;
+  var _qhstrParams, _netbarlist, _tabLoadEnd, _activate;
 
   module.exports = {
     init: function() {
@@ -230,27 +230,32 @@ define(function(require, exports, module) {
 
   function buildMenu() {
     var menus = [{
-      classT: 'bbtn remote_bbtn',
-      text: '远程维护'
+      name: 'remote',
+      text: '远程'
     }, {
-      classT: 'bbtn account_bbtn',
-      text: '我的账号',
+      name: 'account',
+      text: '我的'
     }]
 
     var html = '';
     for (var i in menus) {
       var m = menus[i];
-      html += '<a href="javascript:void(0);">';
-      html += '<div class="' + m.classT + '">' + m.text + '</div></a>';
+      html += '<a href="javascript:void(0);" class="' + m.name + '_bbtn icon_' + m.name + '_svg">';
+      html += '<i><svg class="svg_icon" viewBox="' + (m.name == 'account' ? '0 0 48 48' : "0 0 1024 1024") + '" ' + (m.name == 'account' ? 'style="width: 22px;"' : '') + '>'
+           +  '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#_yun_'+ m.name +'_svg"></use>'
+           +  '</svg></i><p>' + m.text + '</p></a>';
     }
 
     $('div.menus').append(html);
   }
 
   function activeBtn(name) {
-    $('div.bbtn').css('color', '#43b2e7').css('background-color', 'inherit');
+    $('.icon_'+ _activate +'_svg i').empty().append('<svg class="svg_icon" ' + (_activate == 'account' ? 'style="width: 22px;"' : '') + ' viewBox="' + (_activate == 'account' ? '0 0 48 48' : "0 0 1024 1024") + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#_yun_' + _activate + '_svg"></use></svg>');
     loadURL('../apps/' + name + '.html');
-    $('div.' + name + '_bbtn').css('color', '#FFF').css('background-color', '#43b2e7');
+    $('.icon_' + name + '_svg i').empty().append('<svg class="svg_icon" ' + (name == 'account' ? 'style="width: 22px;"' : '') + ' viewBox="' + (name == 'remote' ? '0 0 48 48' : "0 0 1024 1024") + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#yun_' + name + '_svg"></use></svg>');
+    $('div.menus p').css('color', '#82858B');
+    $('div.menus a.' + name + '_bbtn p').css('color', '#43b2e7');
+    _activate = name;
   }
 
   function loadURL(a) {

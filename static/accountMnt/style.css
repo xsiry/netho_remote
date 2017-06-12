@@ -29,6 +29,11 @@
   /*padding: 0 1rem 1rem 1rem;*/
 }
 
+.right_svg {
+  -webkit-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
 .account_list>ul>li {
   transition: transform .1s linear;
   list-style-type: none;

@@ -318,10 +318,7 @@ define(function(require, exports, module) {
             list += '<li class="list-li"><a href="javascript:void(0)" class="account_choose"><i>'
                  +  '<svg class="svg_icon" viewBox="0 0 1024 1024">'
                  +  '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#account_svg"></use>'
-                 +  '</svg></i><span>'+ o.username +'</span>'
-                 +  '<i class="pull-right"><svg class="svg_icon" viewBox="0 0 1024 1024">'
-                 +  '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#right_svg"></use>'
-                 +  '</svg></i></a>'
+                 +  '</svg></i><span>'+ o.username +'</span></a>'
                  +  '<div class="account_tools"><a href="javascript:void(0);" class="account_update" data-sysusid='+ o.sysusid +'>修改</a>'
                  +  '<a href="javascript:void(0);" class="account_del" data-sysusid='+ o.sysusid +'>删除</a></div></li>';
           });

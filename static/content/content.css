@@ -56,11 +56,27 @@ html {
   filter: grayscale(90%) opacity(50%);
 }
 
-.menus a,
+a,
 a:hover,
 a:focus {
-  color: #43b2e7;
   text-decoration: none;
+}
+
+.menus a,
+.menus a:hover,
+.menus a:focus {
+  display: block;
+  float: left;
+  text-decoration: none;
+  width: 50%;
+  height: 100%;
+  text-align: center;
+}
+
+.menus>a>i>.svg_icon {
+  width: 40px;
+  height: 2.5rem;
+  margin-top: 4px;
 }
 
 .afresh_login {
@@ -79,7 +95,7 @@ a:focus {
 .netbar_list_btn {
   display: none;
   position: fixed;
-  bottom: 6rem;
+  bottom: 7rem;
   right: 1rem;
   background-color: rgba(86, 89, 92, 0.72);
   border-radius: 30px;
