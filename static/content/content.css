@@ -119,15 +119,15 @@ a:focus {
 }
 
 .netbar_list_mask {
+  display: hidden;
   position: fixed;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: #FFF;
   z-index: 10;
-  padding: 0.5rem;
   bottom: 0;
-  padding-bottom: 6.5rem;
-  padding-top: 5rem;
+  margin-bottom: 58px;
+  padding-top: 108px;
 }
 .netbar_block {
   overflow-x: hidden;
@@ -150,7 +150,7 @@ a:focus {
 }
 
 .input_search {
-  height: 5rem;
+  height: 55px;
   padding: 0.5rem 1rem;
   border: none;
   font-size: 1.6rem;
@@ -164,8 +164,13 @@ a:focus {
 }
 
 .has-feedback .form-control {
-  padding-left: 3.5rem;
-  padding-right: 0;
+  padding-left: 40px;
+  padding-right: 20px;
+  margin: 0 auto;
+  border: 0;
+  display: inline-block;
+  width: 100%;
+  border-bottom: 1px solid #d8d8d8;
 }
 
 .form-control-feedback {
@@ -173,7 +178,8 @@ a:focus {
   z-index: 2;
   left: 0;
   font-size: 1.6rem;
-  padding-top: 0.8rem;
+  padding-top: 12px;
+  padding-left: 8px;
 }
 
 ul {
@@ -360,25 +366,30 @@ input[type=checkbox], input[type=radio] {
 }
 
 .has-success .form-control {
-    border-color: #3c763d;
-    -webkit-box-shadow: initial;
-    box-shadow: initial;
+  border-color: #3c763d;
+  -webkit-box-shadow: initial;
+  box-shadow: initial;
 }
 
 .has-success .form-control:focus {
-    border-color: #2b542c;
-    -webkit-box-shadow: initial;
-    box-shadow: initial;
+  border-color: #2b542c;
+  -webkit-box-shadow: initial;
+  box-shadow: initial;
 }
 
 .has-error .form-control {
-    border-color: #a94442;
-    -webkit-box-shadow: initial;
-    box-shadow: initial;
+  border-color: #a94442;
+  -webkit-box-shadow: initial;
+  box-shadow: initial;
 }
 
 .has-error .form-control:focus {
-    border-color: #a94442;
-    -webkit-box-shadow: initial;
-    box-shadow: initial;
+  border-color: #a94442;
+  -webkit-box-shadow: initial;
+  box-shadow: initial;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  height: 40px;
 }

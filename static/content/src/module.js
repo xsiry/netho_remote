@@ -19,6 +19,7 @@ define(function(require, exports, module) {
       })
       $.root_.off('click', '.account_bbtn').on("click", '.account_bbtn', function(e) {
         var name = 'account';
+        $('.netbar_list_mask').hide();
         $('.netbar_list_btn').hide();
         activeBtn(name);
       })
@@ -160,7 +161,7 @@ define(function(require, exports, module) {
       _qhstrParams = { qjson: [{}]};
       var html = "";
       html += '<div class="form-group has-feedback search_block">'
-           + '<input type="text" class="form-control input_search" placeholder="搜索">'
+           + '<input type="search" class="form-control input_search" placeholder="搜索">'
            + '<span class="glyphicon glyphicon-search form-control-feedback icon" aria-hidden="true"></span>'
            + '</div><ul></ul>';
 
@@ -243,19 +244,24 @@ define(function(require, exports, module) {
       html += '<a href="javascript:void(0);" class="' + m.name + '_bbtn icon_' + m.name + '_svg">';
       html += '<i><svg class="svg_icon" viewBox="' + (m.name == 'account' ? '0 0 48 48' : "0 0 1024 1024") + '" ' + (m.name == 'account' ? 'style="width: 22px;"' : '') + '>'
            +  '<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#_yun_'+ m.name +'_svg"></use>'
-           +  '</svg></i><p>' + m.text + '</p></a>';
+           +  '</svg></i><p style="color: #82858B">' + m.text + '</p></a>';
     }
 
     $('div.menus').append(html);
+    activeBtn('remote');
   }
 
   function activeBtn(name) {
     $('.icon_'+ _activate +'_svg i').empty().append('<svg class="svg_icon" ' + (_activate == 'account' ? 'style="width: 22px;"' : '') + ' viewBox="' + (_activate == 'account' ? '0 0 48 48' : "0 0 1024 1024") + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#_yun_' + _activate + '_svg"></use></svg>');
-    loadURL('../apps/' + name + '.html');
     $('.icon_' + name + '_svg i').empty().append('<svg class="svg_icon" ' + (name == 'account' ? 'style="width: 22px;"' : '') + ' viewBox="' + (name == 'remote' ? '0 0 48 48' : "0 0 1024 1024") + '"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#yun_' + name + '_svg"></use></svg>');
     $('div.menus p').css('color', '#82858B');
     $('div.menus a.' + name + '_bbtn p').css('color', '#43b2e7');
     _activate = name;
+    if (name == 'remote' && !_netbarid) {
+      $('.open_netbar_list').trigger('click');
+      return;
+    };
+    loadURL('../apps/' + name + '.html');
   }
 
   function loadURL(a) {
